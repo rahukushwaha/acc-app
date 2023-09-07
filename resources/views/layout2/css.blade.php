@@ -21,8 +21,10 @@
          <!-- INTERNAL Switcher css -->
          <link href="{{ asset('assets/switcher/css/switcher.css') }}" rel="stylesheet"/>
          <link href="{{ asset('assets/switcher/demo.css') }}" rel="stylesheet"/>
+         <!-- SELECT2 CSS -->
+		   <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet"/>
         <style>
-           .error {
+           .error, .required {
                 color: red;
            }
         </style>

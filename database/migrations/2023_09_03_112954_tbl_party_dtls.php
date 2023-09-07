@@ -16,9 +16,10 @@ return new class extends Migration
             $table->string('varPartyName')->nullable();
             $table->string('varMobileNo')->nullable();
             $table->string('varBillingAddress')->nullable();
+            $table->boolean('bitShippingAdrSame')->default(0)->comment('1 = Same, 0 = Not Same');
             $table->string('varShippingAddress')->nullable();
             $table->integer('intSupplyPlaceStateMstrsId')->nullable();
-            $table->integer('intGstin')->nullable();
+            $table->string('varGstin')->nullable();
             $table->boolean('bitDeletedFlag')->default(0)->comment('0 = active, 1 = deactive');
             $table->integer('intCreatedby')->nullable();
             $table->integer('intUpdatedby')->nullable();

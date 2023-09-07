@@ -19,6 +19,8 @@
 		<script src="{{ asset('assets/js/custom.js') }}"></script>
 		<!-- Switcher js -->
 		<script src="{{ asset('assets/switcher/js/switcher.js') }}"></script>
+        <!-- SELECT2 JS -->
+		<script src="{{ asset('assets/plugins/select2/select2.full.min.js') }}"></script>
         <script>
             function successMsgAutoClose(msg) {
                 $('body').removeClass('timer-alert');
@@ -82,5 +84,8 @@
                 $('body').removeClass('timer-alert');
                 swal({ title: "", text: msg, type: "error", });
             }
+            $('.select2').select2({
+                selectOnClose: true,
+            });
         </script>
         @stack('js')
