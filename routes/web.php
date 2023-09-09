@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\API\AjaxController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\FilePermission\MenuController;
 use App\Http\Controllers\FilePermission\PermissionController;
+use App\Http\Controllers\Party\PartyController;
 use App\Http\Controllers\Sales\InvoiceController;
 use Illuminate\Support\Facades\Route;
 
@@ -44,5 +46,17 @@ Route::middleware(['ensure.is.logged.in'])->group(function () {
         Route::get('/sub/menu/link', function () { return view('emptypage'); });
         Route::get('/submeu/link/one', function () { return view('emptypage'); });
         Route::get('/submeu/link/two', function () { return view('emptypage'); });
+
+        //Party for invoice
+        Route::post('/Party/Party/PostAdd', [PartyController::class, 'PostAdd'])->name("Party.Party.PostAdd");
+        Route::get('/Party/Party/GetPartDtlWithNameNo', [PartyController::class, 'GetPartDtlWithNameNo'])->name("Party.Party.GetPartDtlWithNameNo");
+        Route::post('/Party/Party/getPartyDtlForInvoiceById', [PartyController::class, 'getPartyDtlForInvoiceById'])->name("Party.Party.getPartyDtlForInvoiceById");
+
+        // Party
+        
     //});
 });
+
+
+
+//Route::get('/ajax/getPartDtl', [AjaxController::class, 'showDistrictName'])->name("ajax.getPartyDtl");

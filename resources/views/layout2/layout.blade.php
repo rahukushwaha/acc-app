@@ -1,5 +1,4 @@
 @inject('UserUtility', 'App\Repositories\UserUtilityForTrait')
-
 <!doctype html>
 <html lang="en" dir="ltr">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -15,6 +14,7 @@
         <title>Zanex – Laravel Admin & Dashboard Template </title>
         <!-- FAVICON -->
 		<link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/brand/favicon.ico') }}" />
+		<meta name="csrf-token" content="{{ csrf_token() }}" />
         @include('layout2.css')
 	</head>
 	<!-- <body class="app sidebar-mini sidenav-toggled"> -->
@@ -868,5 +868,19 @@
             
 		</div>
         @include('layout2.js')
+		<script>
+        @if(Session::has('successNotify'))
+			successNotify("{{ Session::get('successNotify') }} ");
+        @endif
+		@if(Session::has('dangerNotify'))
+			dangerNotify("{{ Session::get('dangerNotify') }} ");
+        @endif
+		@if(Session::has('warningNotify'))
+			warningNotify("{{ Session::get('warningNotify') }} ");
+        @endif
+		@if(Session::has('infoNotify'))
+			infoNotify("{{ Session::get('infoNotify') }} ");
+        @endif
+    </script>
 	</body>
 </html>

@@ -15,7 +15,7 @@ class InvoiceController extends Controller
     use UserUtility;
     public function Index()
     {
-        
+        //Session::flash('infoNotify', 'alert-danger');
         return view('Sales.index');
     }
 }

@@ -21,69 +21,54 @@
 		<script src="{{ asset('assets/switcher/js/switcher.js') }}"></script>
         <!-- SELECT2 JS -->
 		<script src="{{ asset('assets/plugins/select2/select2.full.min.js') }}"></script>
+
+        <!-- INTERNAL Notifications js -->
+		<script src="{{ asset('assets/plugins/notify/js/notifIt.js') }}"></script>
+
+        <!-- JQUERY VALIDATION JS -->
+        <script src="{{ asset('assets/js/jquery.validate.js') }}"></script>
+        <!-- JQUERY loadingoverlay JS -->
+        <script src="{{ asset('assets/js/loading-overlay/loadingoverlay2.1.7.min.js') }}"></script>
         <script>
-            function successMsgAutoClose(msg) {
-                $('body').removeClass('timer-alert');
-                swal({
-                    title: "",
-                    text: msg,
-                    timer: 2000
-                })?.then(
-                    function() {},
-                    // handling the promise rejection
-                    function(dismiss) {
-                        if (dismiss === 'timer') {
-                            console.log('I was closed by the timer')
-                        }
-                    }
-                )
+            function successNotify(message){
+                notif({
+                    msg: message,
+                    type: "success",
+                    position: "right",
+                    opacity: 0.8
+                });
             }
-            function successMsg(msg) {
-                $('body').removeClass('timer-alert');
-                swal({ title: "", text: msg });
-            }
-            function warningMsgAutoClose(msg) {
-                $('body').removeClass('timer-alert');
-                swal({
-                    title: "",
-                    text: msg,
-                    type: "warning",
-                    timer: 2000
-                })?.then(
-                    function() {},
-                    // handling the promise rejection
-                    function(dismiss) {
-                        if (dismiss === 'timer') {
-                            console.log('I was closed by the timer')
-                        }
-                    }
-                )
-            }
-            function warningMsg(msg) {
-                $('body').removeClass('timer-alert');
-                swal({ title: "", text: msg, type: "warning", });
-            }
-            function dangerMsgAutoClose(msg) {
-                $('body').removeClass('timer-alert');
-                swal({
-                    title: "",
-                    text: msg,
+            function dangerNotify(message){
+                notif({
+                    msg: message,
                     type: "error",
-                    timer: 2000
-                })?.then(
-                    function() {},
-                    // handling the promise rejection
-                    function(dismiss) {
-                        if (dismiss === 'timer') {
-                            console.log('I was closed by the timer')
-                        }
-                    }
-                )
+                    position: "right",
+                    opacity: 0.8
+                });
             }
-            function dangerMsg(msg) {
-                $('body').removeClass('timer-alert');
-                swal({ title: "", text: msg, type: "error", });
+            function warningNotify(message){
+                notif({
+                    type: "warning",
+                    msg: message,
+                    position: "right",
+                    opacity: 0.8
+                });
             }
+            function infoNotify(message){
+                notif({
+                    type: "info",
+                    msg: message,
+                    //width: "all",
+                    //height: 70,
+                    position: "right",
+                    opacity: 0.8
+                });
+            }
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $('.select2').select2({
                 selectOnClose: true,
             });

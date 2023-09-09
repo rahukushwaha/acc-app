@@ -23,6 +23,9 @@
          <link href="{{ asset('assets/switcher/demo.css') }}" rel="stylesheet"/>
          <!-- SELECT2 CSS -->
 		   <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet"/>
+         <!-- INTERNAL Notifications  Css -->
+         <link href="{{ asset('assets/plugins/notify/css/jquery.growl.css') }}" rel="stylesheet" />
+		   <link href="{{ asset('assets/plugins/notify/css/notifIt.css') }}" rel="stylesheet" />
         <style>
            .error, .required {
                 color: red;

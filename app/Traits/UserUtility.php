@@ -14,6 +14,9 @@ trait UserUtility
     public function loggerDtl() {
         return $this->session->get('userData');
     }
+    public function getUserId() : int {
+        return $this->session->get('userData.id');
+    }
     public function getLoggerId() : int {
         return $this->session->get('userData.id');
     }
