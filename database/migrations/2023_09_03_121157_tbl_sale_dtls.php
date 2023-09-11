@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('varSAC')->nullable();
             $table->tinyInteger('intQty')->nullable();
             $table->decimal('decSalesPrice', 10, 2)->nullable();
+            $table->decimal('decDiscountPer', 10, 2)->nullable();
             $table->decimal('decDiscountAmt', 10, 2)->nullable();
             $table->decimal('decTaxAmt', 10, 2)->nullable();
             $table->tinyInteger('intGstPer')->nullable();

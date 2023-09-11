@@ -29,6 +29,8 @@
         <script src="{{ asset('assets/js/jquery.validate.js') }}"></script>
         <!-- JQUERY loadingoverlay JS -->
         <script src="{{ asset('assets/js/loading-overlay/loadingoverlay2.1.7.min.js') }}"></script>
+        <!-- Key Press Custom Validation JS -->
+        <script src="{{ asset('assets/js/others/CustomKeyValidation.js') }}"></script>
         <script>
             function successNotify(message){
                 notif({

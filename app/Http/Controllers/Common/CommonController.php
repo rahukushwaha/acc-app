@@ -22,4 +22,18 @@ class CommonController extends Controller
         }
         return $options;
     }
+    public function showItemList($selectedId = null)
+    {
+        $resultList = DB::table("tbl_item_mstrs")
+                    ->get();
+        $options = "";
+        foreach($resultList as $key=>$result) {
+            $selectedTxt = '';
+            if($selectedId != null && $selectedId != 0){
+                $selectedTxt = ($result->id == $selectedId) ? 'selected' : '';
+            }
+            $options .= "<option value='".$result->id."' ".$selectedTxt.">".$result->varItem."</option>";
+        }
+        return $options;
+    }
 }

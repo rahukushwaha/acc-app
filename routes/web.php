@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\FilePermission\MenuController;
 use App\Http\Controllers\FilePermission\PermissionController;
+use App\Http\Controllers\Master\SubItemController;
 use App\Http\Controllers\Party\PartyController;
 use App\Http\Controllers\Sales\InvoiceController;
 use Illuminate\Support\Facades\Route;
@@ -52,7 +53,8 @@ Route::middleware(['ensure.is.logged.in'])->group(function () {
         Route::get('/Party/Party/GetPartDtlWithNameNo', [PartyController::class, 'GetPartDtlWithNameNo'])->name("Party.Party.GetPartDtlWithNameNo");
         Route::post('/Party/Party/getPartyDtlForInvoiceById', [PartyController::class, 'getPartyDtlForInvoiceById'])->name("Party.Party.getPartyDtlForInvoiceById");
 
-        // Party
+        // Master
+        Route::post('/Master/SubItem/getSubItemByItemId', [SubItemController::class, 'getSubItemByItemId'])->name("Master.SubItem.getSubItemByItemId");
         
     //});
 });
