@@ -14,6 +14,7 @@ class tbl_sub_item_mstrs extends Seeder
      */
     public function run(): void
     {
+        DB::table('tbl_sub_item_mstrs')->truncate();
         DB::table('tbl_sub_item_mstrs')->insert([
             [
                 'intItemMstrsId' => 1,

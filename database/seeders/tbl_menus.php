@@ -16,6 +16,7 @@ class tbl_menus extends Seeder
      */
     public function run()
     {
+        DB::table('tbl_menus')->truncate();
         DB::table('tbl_menus')->insert([
             [
                 'menu_type' => '0',
@@ -117,6 +118,26 @@ class tbl_menus extends Seeder
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
+            [
+                'menu_type' => '1',
+                'menu_name' => 'Purchases',
+                'menu_url' => '#',
+                'menu_icon' => 'fa fa-folder',
+                'parent_menu_id' => null,
+                'status' => '1',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'menu_type' => '2',
+                'menu_name' => 'Invoice',
+                'menu_url' => 'Purchases/Invoice',
+                'menu_icon' => null,
+                'parent_menu_id' => '11',
+                'status' => '1',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ]
         ]);
     }
 }

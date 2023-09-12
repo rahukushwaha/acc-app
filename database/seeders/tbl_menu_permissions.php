@@ -16,6 +16,7 @@ class tbl_menu_permissions extends Seeder
      */
     public function run()
     {
+        DB::table('tbl_menu_permissions')->truncate();
         DB::table('tbl_menu_permissions')->insert([
             [
                 'menu_id' => '1',
@@ -87,6 +88,20 @@ class tbl_menu_permissions extends Seeder
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
+            [
+                'menu_id' => '11',
+                'role_id' => '2',
+                'status' => '1',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'menu_id' => '12',
+                'role_id' => '2',
+                'status' => '1',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ]
         ]);
     }
 }

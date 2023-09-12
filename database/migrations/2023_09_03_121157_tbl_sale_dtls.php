@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tbl_sale_dtls', function (Blueprint $table) {
             $table->id();
             $table->string('varItemType')->nullable();
+            $table->string('varBarcode')->nullable();
             $table->integer('intSalesId')->nullable();
             $table->integer('intItemMstrsId')->nullable();
             $table->integer('intSubItemMstrsId')->nullable();

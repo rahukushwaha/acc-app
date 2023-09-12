@@ -14,6 +14,7 @@ class tbl_state_mstrs extends Seeder
      */
     public function run(): void
     {
+        DB::table('tbl_state_mstrs')->truncate();
         DB::table('tbl_state_mstrs')->insert([
             [
                 'varStateName' => 'Andhra Pradesh',

@@ -14,6 +14,7 @@ class tbl_item_mstrs extends Seeder
      */
     public function run(): void
     {
+        DB::table('tbl_item_mstrs')->truncate();
         DB::table('tbl_item_mstrs')->insert([
             [
                 'varItem' => 'Phone',

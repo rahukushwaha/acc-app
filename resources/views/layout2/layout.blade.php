@@ -11,7 +11,7 @@
 		<meta name="author" content="Spruko Technologies Private Limited">
 		<meta name="keywords" content="admin, admin dashboard template, bootstrap 5, dashboard, laravel, laravel admin, laravel admin panel, laravel admin template, laravel blade, laravel dashboard, laravel dashboard template, laravel mvc, laravel php, laravel ui template, ui kit">
         <!-- TITLE -->
-        <title>Aman Mobile Zone </title>
+        <title>{{ env('APP_NAME') }}</title>
         <!-- FAVICON -->
 		<link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/brand/favicon.ico') }}" />
 		<meta name="csrf-token" content="{{ csrf_token() }}" />

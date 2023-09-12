@@ -41,7 +41,7 @@ class PartyController extends Controller
         //dd($stateDtl);
         $html = '<label class="fs-20" style="margin-bottom: 0rem">'.$inputs["varPartyName"].'</label><br />';
         if ($inputs["varBillingAddress"] != "") {
-            $html .= '<label class="fs-12" style="margin-bottom: 0rem">address:'.$inputs["varBillingAddress"].'</label><br />';
+            $html .= '<label class="fs-12" style="margin-bottom: 0rem">Address:'.$inputs["varBillingAddress"].'</label><br />';
         }
         $html .= '<label class="fs-12" style="margin-bottom: 0rem">Phone No.:'.$inputs["varMobileNo"].'</label><br />';
         if ($inputs["varGstin"]) {
@@ -57,6 +57,7 @@ class PartyController extends Controller
             "msg" => "Party successfully added !!!",
             "data" => "",
             "party_dtls_id" => $party_dtls_id,
+            "party_intSupplyPlaceStateMstrsId" => $inputs["intSupplyPlaceStateMstrsId"],
             "html" => $html
         ];
         return response()->json($response);
@@ -68,6 +69,7 @@ class PartyController extends Controller
         $result = DB::table("tbl_party_dtls")
                     ->where("varPartyName", "like", "%".$query."%")
                     ->orWhere("varMobileNo", "like", "%".$query."%")
+                    ->limit(20)
                     ->get();
 
         return response()->json($result);
@@ -79,13 +81,13 @@ class PartyController extends Controller
         $partyDtl = DB::table("tbl_party_dtls")
                         ->join('tbl_state_mstrs', 'tbl_party_dtls.intSupplyPlaceStateMstrsId', '=', 'tbl_state_mstrs.id')
                         ->where('tbl_party_dtls.id', $inputs["party_dtls_id"])
-                        ->select('tbl_party_dtls.varPartyName','tbl_party_dtls.varMobileNo','tbl_party_dtls.varBillingAddress','tbl_party_dtls.bitShippingAdrSame','tbl_party_dtls.varGstin', 'tbl_state_mstrs.varStateName')
+                        ->select('tbl_party_dtls.varPartyName','tbl_party_dtls.varMobileNo','tbl_party_dtls.varBillingAddress','tbl_party_dtls.bitShippingAdrSame','tbl_party_dtls.varGstin', 'tbl_party_dtls.intSupplyPlaceStateMstrsId', 'tbl_state_mstrs.varStateName')
                         ->first();
         //dd(DB::getQueryLog());
         //dd($partyDtl);
         $html = '<label class="fs-20" style="margin-bottom: 0rem">'.$partyDtl->varPartyName.'</label><br />';
         if ($partyDtl->varBillingAddress != "") {
-            $html .= '<label class="fs-12" style="margin-bottom: 0rem">address:'.$partyDtl->varBillingAddress.'</label><br />';
+            $html .= '<label class="fs-12" style="margin-bottom: 0rem">Address:'.$partyDtl->varBillingAddress.'</label><br />';
         }
         $html .= '<label class="fs-12" style="margin-bottom: 0rem">Phone No.:'.$partyDtl->varMobileNo.'</label><br />';
         if ($partyDtl->varGstin != "") {
@@ -101,6 +103,7 @@ class PartyController extends Controller
             "msg" => "Party successfully added !!!",
             "data" => "",
             "party_dtls_id" => $inputs["party_dtls_id"],
+            "party_intSupplyPlaceStateMstrsId" => $partyDtl->intSupplyPlaceStateMstrsId,
             "html" => $html
         ];
         return response()->json($response);

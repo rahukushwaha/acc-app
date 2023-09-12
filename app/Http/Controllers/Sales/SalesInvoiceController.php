@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
-class InvoiceController extends Controller
+class SalesInvoiceController extends Controller
 {
     use UserUtility;
     public function Index()

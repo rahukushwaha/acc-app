@@ -14,6 +14,7 @@ class tbl_company_dtls extends Seeder
      */
     public function run(): void
     {
+        DB::table('tbl_company_dtls')->truncate();
         DB::table('tbl_company_dtls')->insert([
             [
                 'varCompanyname' => 'Aman Moble Zone',

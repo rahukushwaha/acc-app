@@ -38,7 +38,7 @@
                                                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                                         <div class="card bg-primary text-white">
                                                             <div class="card-header">
-                                                                <h3 class="card-title">Bill To:</h3>
+                                                                <h3 class="card-title">Bill From:</h3>
                                                                 <div class="card-options" id="card-options-remove-party-dtl" style="display: none;">
                                                                     <a href="#"><i class="fe fe-x"></i></a>
                                                                 </div>
@@ -56,7 +56,7 @@
                                                             </div>
                                                             <div class="card-body modal-effect" data-bs-effect="effect-slide-in-right" data-bs-toggle="modal" href="#modalShowSearchAddNewParty" style="cursor: pointer;" id="partyAddOptionlHideShow">
                                                                 <div class="d-flex">
-                                                                    <p class="mb-0 number-font"> <i class="fa fa-plus"></i> Add Party</p>
+                                                                    <p class="mb-0 number-font"> <i class="fa fa-plus"></i> Add Supplier</p>
                                                                     <div class="ms-auto"> <i class="fa fa-send-o fs-30 me-2 mt-2"></i> </div>
                                                                 </div>
                                                             </div>
@@ -71,13 +71,13 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label class="form-label" for="varInvoiceNo">Sales Invoice No. <span class="required">*</span> </label>
-                                                            <input type="text" class="form-control" id="varInvoiceNo" name="varInvoiceNo" placeholder="Sale Invoice No" required>
+                                                            <label class="form-label" for="varInvoiceNo">Purchase Invoice No. <span class="required">*</span> </label>
+                                                            <input type="text" class="form-control" id="varInvoiceNo" name="varInvoiceNo" placeholder="Purchase Invoice No" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label class="form-label" for="dtInvoiceDate">Sales Invoice Date <span class="required">*</span></label>
+                                                            <label class="form-label" for="dtInvoiceDate">Purchase Invoice Date <span class="required">*</span></label>
                                                             <input type="date" class="form-control" id="dtInvoiceDate" name="dtInvoiceDate" placeholder="Sales Invoice Date" required>
                                                         </div>
                                                     </div>
@@ -220,6 +220,25 @@
                                                         <div class="row">
                                                             <div class="col-sm-12 col-md-12">
                                                                 <textarea class="form-control" id="varTermsNCondition" name="varTermsNCondition"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row border-bottom border-info" style="padding-bottom: 0.2rem!important;">
+                                                    <div class="col-sm-12 col-md-12 col-xl-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-md-12">
+                                                                Upload Invoice Receipt
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-md-12">
+                                                                <div class="input-group mb-5 file-browser">
+                                                                    <input type="text" class="form-control browse-file" placeholder="Choose" readonly>
+                                                                    <label class="input-group-text btn btn-primary">
+                                                                        Browse <input type="file" class="file-browserinput" style="display: none;" multiple>
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -403,7 +422,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <select class="form-select" id="vchSearchPartyDtl" name="vchSearchPartyDtl" data-placeholder="Search Party" style="width:100%">
+                        <select class="form-select" id="vchSearchPartyDtl" name="vchSearchPartyDtl" data-placeholder="Search Supplier" style="width:100%">
                         </select>
                     </div>
                     <div class="col-sm-12 col-md-16 col-lg-16 col-xl-16" style="margin-top: 20px;" onclick="callAddNewPartyModal();">
@@ -411,7 +430,7 @@
                             <div class="card-body" style="padding: 5px;">
                                 <div class="d-flex">
                                     <div class="text-white">
-                                        <p class="mb-0 number-font"> <i class="fa fa-plus"></i> Create Party</p>
+                                        <p class="mb-0 number-font"> <i class="fa fa-plus"></i> Create Supplier</p>
                                     </div>
                                     <div class="ms-auto"> <i class="fa fa-send-o text-white fs-30 me-2 mt-2"></i> </div>
                                 </div>
@@ -428,14 +447,14 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
-                <h6 class="modal-title">Create New Party</h6>
+                <h6 class="modal-title">Create New Supplier</h6>
                 <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" ><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <form id="form-party-dtl">
                     <div class="row">
                         <div class="form-group col-md-8">
-                            <label class="form-label">Party Name <span class="required">*</span></label>
+                            <label class="form-label">Supplier Name <span class="required">*</span></label>
                             <input type="text" class="form-control" id="varPartyName" name="varPartyName" placeholder="Party Name">
                         </div>
                         <div class="form-group col-md-4">

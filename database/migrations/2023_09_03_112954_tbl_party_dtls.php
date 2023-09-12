@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tbl_party_dtls', function (Blueprint $table) {
             $table->id();
             $table->string('varPartyName')->nullable();
-            $table->string('varMobileNo')->nullable();
+            $table->string('varMobileNo', 10)->nullable();
             $table->string('varBillingAddress')->nullable();
             $table->boolean('bitShippingAdrSame')->default(0)->comment('1 = Same, 0 = Not Same');
             $table->string('varShippingAddress')->nullable();

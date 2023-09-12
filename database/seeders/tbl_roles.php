@@ -16,6 +16,7 @@ class tbl_roles extends Seeder
      */
     public function run()
     {
+        DB::table('tbl_roles')->truncate();
         DB::table('tbl_roles')->insert([
             [
                 'role_name' => 'Guest',
