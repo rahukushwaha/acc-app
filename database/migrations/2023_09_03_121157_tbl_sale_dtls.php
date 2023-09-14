@@ -16,17 +16,17 @@ return new class extends Migration
             $table->string('varItemType')->nullable();
             $table->string('varBarcode')->nullable();
             $table->integer('intSalesId')->nullable();
-            $table->integer('intItemMstrsId')->nullable();
-            $table->integer('intSubItemMstrsId')->nullable();
-            $table->string('varDesc')->nullable();
+            $table->integer('intItemMstrsId')->default(0);
+            $table->integer('intSubItemMstrsId')->default(0);
+            $table->string('varProductSerialNo')->nullable();
             $table->string('varSAC')->nullable();
-            $table->tinyInteger('intQty')->nullable();
-            $table->decimal('decSalesPrice', 10, 2)->nullable();
-            $table->decimal('decDiscountPer', 10, 2)->nullable();
-            $table->decimal('decDiscountAmt', 10, 2)->nullable();
-            $table->decimal('decTaxAmt', 10, 2)->nullable();
+            $table->tinyInteger('intQty')->default(0);
+            $table->decimal('decSalesPrice', 10, 2)->default(0);
+            $table->decimal('decDiscountPer', 10, 2)->default(0);
+            $table->decimal('decDiscountAmt', 10, 2)->default(0);
+            $table->decimal('decTaxAmt', 10, 2)->default(0);
             $table->tinyInteger('intGstPer')->nullable();
-            $table->decimal('decAmount', 10, 2)->nullable();
+            $table->decimal('decAmount', 10, 2)->default(0);
             $table->boolean('bitDeletedFlag')->default(0)->comment('0 = active, 1 = deactive');
             $table->integer('intCreatedby')->nullable();
             $table->integer('intUpdatedby')->nullable();
@@ -36,6 +36,7 @@ return new class extends Migration
             $table->index(['intSalesId']);
             $table->index(['intItemMstrsId']);
             $table->index(['intSubItemMstrsId']);
+            $table->index(['varProductSerialNo']);
         });
     }
 

@@ -38,7 +38,7 @@
 					<!-- CONTAINER OPEN -->
 					<div class="col col-login mx-auto">
 						<div class="text-center">
-							<!-- <img src="{{ asset('assets/images/brand/logo.png') }}" class="header-brand-img" alt=""> -->
+							<img src="{{ asset('assets/images/logo/') }}/{{ env('APP_LOGO') }}" class="header-brand-img" alt="" >
 						</div>
 					</div>
 					<div class="container-login100">

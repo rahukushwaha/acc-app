@@ -19,11 +19,11 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="card">
-                        <form id="form-invoice">
+                        <form id="form-invoice" enctype="multipart/form-data">
                             <div class="card-header border-bottom">
                                 <h4 class="mb-0">Invoice</h4>
                                 <div class="card-options">
-                                    <button class="btn btn-outline-info">
+                                    <button type="submit" class="btn btn-outline-info">
                                         <i class="fe fe-file-minus"></i>
                                         Save & Generate
                                     </button>
@@ -70,15 +70,11 @@
                                             <div class="col-xl-5 col-md-5 col-sm-12 border-y border-info">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="form-label" for="varInvoiceNo">Purchase Invoice No. <span class="required">*</span> </label>
-                                                            <input type="text" class="form-control" id="varInvoiceNo" name="varInvoiceNo" placeholder="Purchase Invoice No" required>
-                                                        </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label class="form-label" for="dtInvoiceDate">Purchase Invoice Date <span class="required">*</span></label>
-                                                            <input type="date" class="form-control" id="dtInvoiceDate" name="dtInvoiceDate" placeholder="Sales Invoice Date" required>
+                                                            <input type="date" class="form-control" id="dtInvoiceDate" name="dtInvoiceDate" placeholder="Purchase Invoice Date"  value="<?=Date("Y-m-d")?>" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -86,14 +82,14 @@
                                                             <label class="form-label" for="intPaymentTerms">Payment Terms <span class="required">*</span></label>
                                                             <div class="input-group">
                                                                 <span class="input-group-text">Days</span>
-                                                                <input type="text" class="form-control" id="intPaymentTerms" name="intPaymentTerms" value="" />
+                                                                <input type="text" class="form-control" id="intPaymentTerms" name="intPaymentTerms" value="0" />
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label class="form-label" for="dtDueDate">Due Date <span class="required">*</span></label>
-                                                            <input type="date" class="form-control" id="dtDueDate" name="dtDueDate" placeholder="Due Date" required>
+                                                            <input type="date" class="form-control" id="dtDueDate" name="dtDueDate" placeholder="Due Date" value="<?=Date("Y-m-d")?>" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -126,18 +122,19 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody id="itemTBody">
-                                                            <tr id="myTable-row-1">
+                                                            <tr>
                                                                 <td>
-                                                                    <select class="form-select" id="intItemMstrsId1" name="intItemMstrsId[]" style="width:110%" onchange="ItemMstrChangeFun(this.id)">
-                                                                        <option>select</option>
+                                                                    <select class="form-select" id="intItemMstrsId1" name="intItemMstrsId[]" onchange="ItemMstrChangeFun(this.id)">
+                                                                        <option value="">select</option>
                                                                         {!! app('App\Http\Controllers\Common\CommonController')->showItemList() !!}
                                                                     </select>
+                                                                    <label id="intItemMstrsId1-error" class="error" for="intItemMstrsId1">This field is required.</label>
                                                                 </td>
                                                                 <td style="width: 200px;">
                                                                     <select class="select2 form-select select2-dropdown" id="intSubItemMstrsId1" name="intSubItemMstrsId[]" data-placeholder="SELECT" style="width:100%">
-                                                                        <option>select item</option>
+                                                                        <option value="">select item</option>
                                                                     </select>
-                                                                    <textarea class="form-control" id="varDesc1" name="varDesc[]" placeholder="Small Desc"></textarea>
+                                                                    <textarea class="form-control varProductSerialNo" id="varProductSerialNo1" name="varProductSerialNo[]" placeholder="Product Serial No."></textarea>
                                                                 </td>
                                                                 <td style="width: 150px;">
                                                                     <input type="text" class="form-control varSAC" id="varSAC1" name="varSAC[]" placeholder="SAC" />
@@ -200,7 +197,7 @@
                                                     <div class="col-sm-12 col-md-12 col-xl-12">
                                                         <div class="row">
                                                             <div class="col-sm-12 col-md-12">
-                                                                Notes
+                                                                <label class="form-label">Notes</label>
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -214,7 +211,7 @@
                                                     <div class="col-sm-12 col-md-12 col-xl-12">
                                                         <div class="row">
                                                             <div class="col-sm-12 col-md-12">
-                                                                Terms and Conditions
+                                                                <label class="form-label">Terms and Conditions</label>
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -226,18 +223,27 @@
                                                 </div>
                                                 <div class="row border-bottom border-info" style="padding-bottom: 0.2rem!important;">
                                                     <div class="col-sm-12 col-md-12 col-xl-12">
-                                                        <div class="row">
+                                                        <!-- <div class="row">
                                                             <div class="col-sm-12 col-md-12">
                                                                 Upload Invoice Receipt
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                         <div class="row">
-                                                            <div class="col-sm-12 col-md-12">
-                                                                <div class="input-group mb-5 file-browser">
-                                                                    <input type="text" class="form-control browse-file" placeholder="Choose" readonly>
-                                                                    <label class="input-group-text btn btn-primary">
-                                                                        Browse <input type="file" class="file-browserinput" style="display: none;" multiple>
-                                                                    </label>
+                                                            <div class="col-sm-12 col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-label" for="varBillReceiptNo">Bill Receipt No.</label>
+                                                                    <input type="text" class="form-control" id="varBillReceiptNo" name="varBillReceiptNo" placeholder="Bill Receipt No." />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-12 col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-label" for="varBillRecceiptFilePath">Upload Bill Receipt</label>
+                                                                    <div class="input-group mb-5 file-browser">
+                                                                        <input type="text" class="form-control browse-file" placeholder="Choose" readonly>
+                                                                        <label class="input-group-text btn btn-primary">
+                                                                            Browse <input type="file" class="file-browserinput" id="varBillRecceiptFilePath" name="varBillRecceiptFilePath" style="display: none;">
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -497,7 +503,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-8">
-                            <button class="btn btn-light" data-bs-dismiss="modal" >Close</button>
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal" >Close</button>
                         </div>
                         <div class="col-md-4">
                             <button type="submit" class="btn btn-primary" id="btn-party-dtl-submit">Save & Change</button>
@@ -645,6 +651,7 @@ $(document).ready(function () {
         $("#partyAddOptionlHideShow").show();
         $("#partyDtlHideShow").hide();
         $("#card-options-remove-party-dtl").hide();
+        finalItemDtlCalc("others");
     });
     //$("#modalAddNewParty").modal("show");
     //$(".card-header > .card-options > .card-options-remove").hide();
@@ -662,7 +669,7 @@ function itemAppendFun() {
     var itemTBodyAppend = '<tr id="myTable-row-'+itemAppendCount+'">';
     itemTBodyAppend += '<td>';
     itemTBodyAppend += '<select class="form-select" id="intItemMstrsId'+itemAppendCount+'" name="intItemMstrsId[]" style="width:110%" onchange="ItemMstrChangeFun(this.id)">';
-    itemTBodyAppend += '<option>select</option>';
+    itemTBodyAppend += '<option value="">select</option>';
     itemTBodyAppend += "{!! app('App\Http\Controllers\Common\CommonController')->showItemList() !!}";
     itemTBodyAppend += '</select>';
     itemTBodyAppend += '</td>';
@@ -670,7 +677,7 @@ function itemAppendFun() {
     itemTBodyAppend += '<select class="select2 form-select select2-dropdown" id="intSubItemMstrsId'+itemAppendCount+'" name="intSubItemMstrsId[]" data-placeholder="SELECT" style="width:100%">';
     itemTBodyAppend += '<option>select item</option>';
     itemTBodyAppend += '</select>';
-    itemTBodyAppend += '<textarea class="form-control" id="varDesc'+itemAppendCount+'" name="varDesc[]" placeholder="Small Desc"></textarea>';
+    itemTBodyAppend += '<textarea class="form-control varProductSerialNo" id="varProductSerialNo'+itemAppendCount+'" name="varProductSerialNo[]" placeholder="Product Serial No."></textarea>';
     itemTBodyAppend += '</td>';
     itemTBodyAppend += '<td style="width: 150px;">';
     itemTBodyAppend += '<input type="text" class="form-control varSAC" id="varSAC'+itemAppendCount+'" name="varSAC[]" placeholder="SAC" />';
@@ -709,6 +716,7 @@ function itemAppendFun() {
 }
 function removeSubItemDtlFun(rowRemoveId) {
     $('#myTable-row-'+rowRemoveId).remove();
+    finalItemDtlCalc("others");
 }
 
 function itemDtlCalc(id, keyName) {
@@ -772,6 +780,27 @@ function itemDtlCalc(id, keyName) {
     decAmount = parseFloat(decAmountTemp - decDiscountAmt);
     $("#decAmount"+id).val(decAmount.toFixed(2));
     
+    finalItemDtlCalc(keyName);
+}
+function finalItemDtlCalc(keyName) {
+    var decSubTotalAmt = parseFloat($("#decSubTotalAmt").val());
+    if ($("#decAdditionalChargesAmt").val()=="") {
+        $("#decAdditionalChargesAmt").val(0.00);
+    }
+    var decAdditionalChargesAmt = parseFloat($("#decAdditionalChargesAmt").val());
+    if (decAdditionalChargesAmt == "") {
+        decAdditionalChargesAmt = 0;
+    }
+    if ($("#decExtraDiscountAmt").val()=="") {
+        $("#decExtraDiscountAmt").val(0.00);
+    }
+    var decExtraDiscountAmt = parseFloat($("#decExtraDiscountAmt").val());
+    if (decExtraDiscountAmt == "") {
+        decExtraDiscountAmt = 0;
+    }
+    //var decTotalAmt = $("#decTotalAmt").val();
+    var decReceiveAmt = $("#decReceiveAmt").val();
+
     /* start sub total culculation */
     var decTotalSubDiscount = 0;
     var decTotalSubTax = 0;
@@ -801,27 +830,7 @@ function itemDtlCalc(id, keyName) {
     $("#decTotalSubTax").val(decTotalSubTax.toFixed(2));
     $("#decSubTotalAmt").val(decSubTotalAmt.toFixed(2));
     /* end sub total culculation */
-    finalItemDtlCalc(keyName);
-}
-function finalItemDtlCalc(keyName) {
-    var decSubTotalAmt = parseFloat($("#decSubTotalAmt").val());
-    if ($("#decAdditionalChargesAmt").val()=="") {
-        $("#decAdditionalChargesAmt").val(0.00);
-    }
-    var decAdditionalChargesAmt = parseFloat($("#decAdditionalChargesAmt").val());
-    if (decAdditionalChargesAmt == "") {
-        decAdditionalChargesAmt = 0;
-    }
-    if ($("#decExtraDiscountAmt").val()=="") {
-        $("#decExtraDiscountAmt").val(0.00);
-    }
-    var decExtraDiscountAmt = parseFloat($("#decExtraDiscountAmt").val());
-    if (decExtraDiscountAmt == "") {
-        decExtraDiscountAmt = 0;
-    }
-    //var decTotalAmt = $("#decTotalAmt").val();
-    var decReceiveAmt = $("#decReceiveAmt").val();
-
+    /* start taxable total amount culculation */
     var totalTaxableAmt = 0;
     var totalDecTaxAmt = 0;
     var totalIntGstPer = 0;
@@ -840,7 +849,8 @@ function finalItemDtlCalc(keyName) {
             totalIntGstPer = parseFloat(totalIntGstPer + intGstPer);
         }
     });
-    if (totalIntGstPer > 0) {     
+    /* end taxable total amount culculation */
+    if (totalIntGstPer > 0) {
         var party_intSupplyPlaceStateMstrsId = $("#party_intSupplyPlaceStateMstrsId").val();
         var owner_intSupplyPlaceStateMstrsId = $("#owner_intSupplyPlaceStateMstrsId").val();
         $(".decTaxableAmtHideShow").show();
@@ -907,5 +917,105 @@ function finalItemDtlCalc(keyName) {
     var decBalanceAmt = parseFloat(decTotalAmt - decReceiveAmt);
     $("#decBalanceAmt").val(decBalanceAmt.toFixed(2));
 }
+$(document).ready(function () {
+    jQuery.validator.addMethod("dateFormatYYYMMDD", function(value, element) {
+        return this.optional(element) || /^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))+$/i.test(value);
+    }, "Invalid format (YYYY-MM-DD)"); 
+
+    jQuery.validator.addMethod("dateFormatYYYMM", function(value, element) {
+        return this.optional(element) || /^([12]\d{3}-(0[1-9]|1[0-2]))+$/i.test(value);
+    }, "Invalid format (YYYY-MM)"); 
+
+    jQuery.validator.addMethod("alphaSpace", function(value, element) {
+        return this.optional(element) || /^[a-zA-Z ]+$/i.test(value);
+    }, "Letters only please (a-z, A-Z )");
+
+    jQuery.validator.addMethod("alphaNumCommaSlash", function(value, element) {
+        return this.optional(element) || /^[a-zA-Z0-9- ]+$/i.test(value);
+    }, "Letters only please (a-z, A-Z, 0-9, -)");
+
+    jQuery.validator.addMethod("alphaNumhyphen", function(value, element) {
+        return this.optional(element) || /^[a-zA-Z0-9- ]+$/i.test(value);
+    }, "Letters only please (a-z, A-Z, 0-9, -)"); 
+
+    jQuery.validator.addMethod("numDot", function(value, element) {
+        return this.optional(element) || /^\d+(?:\.\d+)+$/i.test(value);
+    }, "Letters only please (0-9.)"); 
+
+    jQuery.validator.addMethod('min_greater_zero', function (value, element) {
+        return value > 0;
+    }, "Please enter a value greater than 0");
+
+    $("#form-invoice").validate({
+        rules: {
+            "dtInvoiceDate": {
+                required: true,
+                dateFormatYYYMMDD: true,
+            },
+            "intItemMstrsId[]": {
+                required: true,
+            },
+            
+            "intSubItemMstrsId[]": {
+                required: true,
+            },
+            "intQty[]": {
+                required: true,
+            },
+            "decSalesPrice[]": {
+                required: true,
+            },
+            "decAmount[]": {
+                required: true,
+            },
+        },
+        messages: {
+            varBillReceiptNo: {
+                required: "Please enter your email address",
+            },
+        },
+        errorPlacement: function (error, element) {
+            if (element.hasClass("select2-hidden-accessible")) {
+            // If the element is a Select2 input, place the error message after its parent container
+            error.insertAfter(element.parent());
+            } else {
+            // For other elements, use the default placement
+            error.insertAfter(element);
+            }
+        },
+        submitHandler: function (form) {
+            // The form is valid; submit it via AJAX
+            submitForm(form);
+        },
+    });
+    function submitForm(formData) {
+        try {
+            var form = $('#form-invoice')[0]; // Use standard JavaScript object here
+            var formData = new FormData(form);
+            $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: 'data.php',
+                dataType: "json",
+                data: formData,
+                processData: false,  // Don't process the data
+                contentType: false,  // Don't set content type
+                beforeSend: function() {
+                    // You can add loading overlay or any other pre-send logic here
+                },
+                success: function(data) {
+                    if (data.status == 200) {
+                        // Handle success here
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log("ERROR: ", errorThrown);
+                }
+            });
+        } catch (err) {
+            console.log(err);
+        }
+    }
+});
 </script>
 @endpush

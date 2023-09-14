@@ -78,7 +78,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label class="form-label" for="dtInvoiceDate">Sales Invoice Date <span class="required">*</span></label>
-                                                            <input type="date" class="form-control" id="dtInvoiceDate" name="dtInvoiceDate" placeholder="Sales Invoice Date" required>
+                                                            <input type="date" class="form-control" id="dtInvoiceDate" name="dtInvoiceDate" placeholder="Sales Invoice Date" value="<?=Date("Y-m-d")?>" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -93,7 +93,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label class="form-label" for="dtDueDate">Due Date <span class="required">*</span></label>
-                                                            <input type="date" class="form-control" id="dtDueDate" name="dtDueDate" placeholder="Due Date" required>
+                                                            <input type="date" class="form-control" id="dtDueDate" name="dtDueDate" placeholder="Due Date" value="<?=Date("Y-m-d")?>" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -200,7 +200,7 @@
                                                     <div class="col-sm-12 col-md-12 col-xl-12">
                                                         <div class="row">
                                                             <div class="col-sm-12 col-md-12">
-                                                                Notes
+                                                                <label class="form-label">Notes</label>
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -214,7 +214,7 @@
                                                     <div class="col-sm-12 col-md-12 col-xl-12">
                                                         <div class="row">
                                                             <div class="col-sm-12 col-md-12">
-                                                                Terms and Conditions
+                                                                <label class="form-label">Terms and Conditions</label>
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -478,7 +478,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-8">
-                            <button class="btn btn-light" data-bs-dismiss="modal" >Close</button>
+                            <button type="submit" class="btn btn-light" data-bs-dismiss="modal" >Close</button>
                         </div>
                         <div class="col-md-4">
                             <button type="submit" class="btn btn-primary" id="btn-party-dtl-submit">Save & Change</button>

@@ -13,7 +13,7 @@
         <!-- TITLE -->
         <title>{{ env('APP_NAME') }}</title>
         <!-- FAVICON -->
-		<link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/brand/favicon.ico') }}" />
+		<link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/logo/') }}/{{ env('APP_LOGO_FAVICON') }}" />
 		<meta name="csrf-token" content="{{ csrf_token() }}" />
         @include('layout2.css')
 	</head>
@@ -36,15 +36,11 @@
 						<div class="d-flex">
 							<a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="#"></a><!-- sidebar-toggle-->
 							<a class="header-brand1 d-flex d-md-none" href="index.html">
-								<!-- <img src="{{ asset('assets/images/brand/logo.png') }}" class="header-brand-img desktop-logo" alt="logo">
-								<img src="{{ asset('assets/images/brand/logo-1.png') }}" class="header-brand-img toggle-logo" alt="logo">
-								<img src="{{ asset('assets/images/brand/logo-2.png') }}" class="header-brand-img light-logo" alt="logo">
-								<img src="{{ asset('assets/images/brand/logo-3.png') }}" class="header-brand-img light-logo1" alt="logo"> -->
-								<span class="header-brand-img desktop-logo">AMAN</span>
-								<span class="header-brand-img toggle-logo">AMAN</span>
-								<span class="header-brand-img light-logo">AMAN</span>
-								<span class="header-brand-img light-logo1">AMAN</span>
-							</a><!-- LOGO -->
+								<img src="{{ asset('assets/images/logo/') }}/{{ env('APP_LOGO_SMALL') }}" class="header-brand-img desktop-logo" alt="logo">
+								<img src="{{ asset('assets/images/logo/') }}/{{ env('APP_LOGO_SMALL') }}" class="header-brand-img toggle-logo" alt="logo">
+								<img src="{{ asset('assets/images/logo/') }}/{{ env('APP_LOGO_SMALL') }}" class="header-brand-img light-logo" alt="logo">
+								<img src="{{ asset('assets/images/logo/') }}/{{ env('APP_LOGO_SMALL') }}" class="header-brand-img light-logo1" alt="logo">
+							</a> <!-- LOGO -->
 							<div class="main-header-center ms-3 d-none d-md-block">
 								<input class="form-control" placeholder="Search for anything..." type="search"> <button class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>
 							</div>
@@ -215,7 +211,7 @@
 										<a class="dropdown-item" href="faq.html">
 											<i class="dropdown-icon fe fe-alert-triangle"></i> Need help??
 										</a>
-										<a class="dropdown-item" href="login.html">
+										<a class="dropdown-item" href="{{ route('logout') }}">
 											<i class="dropdown-icon fe fe-alert-circle"></i> Sign out
 										</a>
 									</div>
