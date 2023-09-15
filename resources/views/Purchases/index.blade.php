@@ -4,6 +4,11 @@
 .txt-left-side {
     text-align: right;
 }
+.error-jquery-validation {
+    display: block;
+    color: red;
+    margin-top: 5px;
+}
 </style>
 @endpush
 @section('content')
@@ -39,11 +44,11 @@
                                                         <div class="card bg-primary text-white">
                                                             <div class="card-header">
                                                                 <h3 class="card-title">Bill From:</h3>
-                                                                <div class="card-options" id="card-options-remove-party-dtl" style="display: none;">
+                                                                <div class="card-options" id="card-options-remove-supplier-dtl" style="display: none;">
                                                                     <a href="#"><i class="fe fe-x"></i></a>
                                                                 </div>
                                                             </div>
-                                                            <div class="card-body" style="padding-top: 5px; padding-bottom: 5px; padding-bottom: 5px; display: none;" id="partyDtlHideShow">
+                                                            <div class="card-body" style="padding-top: 5px; padding-bottom: 5px; padding-bottom: 5px; display: none;" id="supplierDtlHideShow">
                                                                 <label class="fs-20" style="margin-bottom: 0rem">Name</label><br />
                                                                 <label class="fs-12" style="margin-bottom: 0rem">address:</label><br />
                                                                 <label class="fs-12" style="margin-bottom: 0rem">Phone No.:</label><br />
@@ -54,15 +59,15 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="card-body modal-effect" data-bs-effect="effect-slide-in-right" data-bs-toggle="modal" href="#modalShowSearchAddNewParty" style="cursor: pointer;" id="partyAddOptionlHideShow">
+                                                            <div class="card-body modal-effect" data-bs-effect="effect-slide-in-right" data-bs-toggle="modal" href="#modalShowSearchAddNewSupplier" style="cursor: pointer;" id="supplierAddOptionlHideShow">
                                                                 <div class="d-flex">
                                                                     <p class="mb-0 number-font"> <i class="fa fa-plus"></i> Add Supplier</p>
                                                                     <div class="ms-auto"> <i class="fa fa-send-o fs-30 me-2 mt-2"></i> </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <input type="text" class="form-control" id="party_dtls_id" name="party_dtls_id" value="" />
-                                                        <input type="text" class="form-control" id="party_intSupplyPlaceStateMstrsId" name="party_intSupplyPlaceStateMstrsId" value="" />
+                                                        <input type="text" class="form-control" id="supplier_dtls_id" name="supplier_dtls_id" value="" />
+                                                        <input type="text" class="form-control" id="supplier_intSupplyPlaceStateMstrsId" name="supplier_intSupplyPlaceStateMstrsId" value="" />
                                                         <input type="text" class="form-control" id="owner_intSupplyPlaceStateMstrsId" name="owner_intSupplyPlaceStateMstrsId" value="10" />
                                                     </div>
                                                 </div>
@@ -105,14 +110,14 @@
                                                     <table class="table text-nowrap text-md-nowrap table-bordered" id="myTable">
                                                         <thead>
                                                             <tr>
-                                                                <th>ITEM GROUP</th>
-                                                                <th>ITEM</th>
-                                                                <th>SAC</th>
-                                                                <th>QTY</th>
-                                                                <th>PRICE/ITEM</th>
-                                                                <th>DISCOUNT</th>
-                                                                <th>TAX</th>
-                                                                <th>AMOUNT</th>
+                                                                <th>ITEM GROUP&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                                                                <th>ITEM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                                                                <th>SAC&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                                                                <th>QTY&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                                                                <th>PRICE/ITEM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                                                                <th>DISCOUNT&nbsp&nbsp&nbsp&nbsp</th>
+                                                                <th>TAX&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                                                                <th>AMOUNT&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
                                                                 <th>
                                                                     <a href="javascript:void(0)" role="button" class="text-primary text-center add-invoice-item-btn mt-2" onclick="itemAppendFun();">
                                                                         <i class="fa fa-cart-plus fs-20"></i>
@@ -124,13 +129,14 @@
                                                         <tbody id="itemTBody">
                                                             <tr>
                                                                 <td>
-                                                                    <select class="form-select" id="intItemMstrsId1" name="intItemMstrsId[]" onchange="ItemMstrChangeFun(this.id)">
-                                                                        <option value="">select</option>
-                                                                        {!! app('App\Http\Controllers\Common\CommonController')->showItemList() !!}
-                                                                    </select>
-                                                                    <label id="intItemMstrsId1-error" class="error" for="intItemMstrsId1">This field is required.</label>
+                                                                    <div wid>
+                                                                        <select class="form-select" id="intItemMstrsId1" name="intItemMstrsId[]" onchange="ItemMstrChangeFun(this.id)">
+                                                                            <option value="">select</option>
+                                                                            {!! app('App\Http\Controllers\Common\CommonController')->showItemList() !!}
+                                                                        </select>
+                                                                    </div>
                                                                 </td>
-                                                                <td style="width: 200px;">
+                                                                <td>
                                                                     <select class="select2 form-select select2-dropdown" id="intSubItemMstrsId1" name="intSubItemMstrsId[]" data-placeholder="SELECT" style="width:100%">
                                                                         <option value="">select item</option>
                                                                     </select>
@@ -231,7 +237,7 @@
                                                         <div class="row">
                                                             <div class="col-sm-12 col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="form-label" for="varBillReceiptNo">Bill Receipt No.</label>
+                                                                    <label class="form-label" for="varBillReceiptNo">Bill Receipt No. {{ uniqid() }}</label>
                                                                     <input type="text" class="form-control" id="varBillReceiptNo" name="varBillReceiptNo" placeholder="Bill Receipt No." />
                                                                 </div>
                                                             </div>
@@ -422,7 +428,7 @@
 </div>
 <!-- CONTAINER CLOSED -->
 <!-- MODAL Show Search and Add New Party EFFECTS -->
-<div class="modal fade"  id="modalShowSearchAddNewParty">
+<div class="modal fade"  id="modalShowSearchAddNewSupplier">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-body">
@@ -431,8 +437,8 @@
                         <select class="form-select" id="vchSearchPartyDtl" name="vchSearchPartyDtl" data-placeholder="Search Supplier" style="width:100%">
                         </select>
                     </div>
-                    <div class="col-sm-12 col-md-16 col-lg-16 col-xl-16" style="margin-top: 20px;" onclick="callAddNewPartyModal();">
-                        <div class="card bg-primary img-card box-primary-shadow modal-effect" data-bs-effect="effect-slide-in-right" data-bs-toggle="modal" href="#modalAddNewParty" style="cursor: pointer;">
+                    <div class="col-sm-12 col-md-16 col-lg-16 col-xl-16" style="margin-top: 20px;" onclick="callAddNewSupplierModal();">
+                        <div class="card bg-primary img-card box-primary-shadow modal-effect" data-bs-effect="effect-slide-in-right" data-bs-toggle="modal" href="#modalAddNewSupplier" style="cursor: pointer;">
                             <div class="card-body" style="padding: 5px;">
                                 <div class="d-flex">
                                     <div class="text-white">
@@ -449,7 +455,7 @@
     </div>
 </div>
 <!-- MODAL Add New Party EFFECTS -->
-<div class="modal fade"  id="modalAddNewParty">
+<div class="modal fade"  id="modalAddNewSupplier">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
@@ -457,15 +463,15 @@
                 <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" ><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form id="form-party-dtl">
+                <form id="form-supplier-dtl">
                     <div class="row">
                         <div class="form-group col-md-8">
                             <label class="form-label">Supplier Name <span class="required">*</span></label>
-                            <input type="text" class="form-control" id="varPartyName" name="varPartyName" placeholder="Party Name">
+                            <input type="text" class="form-control" id="varSupplierName" name="varSupplierName" placeholder="Supplier Name">
                         </div>
                         <div class="form-group col-md-4">
                             <label class="form-label">Mobile No <span class="required">*</span></label>
-                            <input type="text" class="form-control" id="varMobileNo" name="varMobileNo" placeholder="Mobile No">
+                            <input type="text" class="form-control" id="varMobileNo" name="varMobileNo" placeholder="Mobile No" maxlength="10">
                         </div>
                     </div>
                     <div class="row">
@@ -506,7 +512,7 @@
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal" >Close</button>
                         </div>
                         <div class="col-md-4">
-                            <button type="submit" class="btn btn-primary" id="btn-party-dtl-submit">Save & Change</button>
+                            <button type="submit" class="btn btn-primary" id="btn-supplier-dtl-submit">Save & Change</button>
                         </div>
                     </div>
                     
@@ -524,9 +530,9 @@ function bitShippingAdrSameOnChanged() {
     else
         $("#varShippingAddressHideShow").show();
 }
-function callAddNewPartyModal() {
-    $("#modalShowSearchAddNewParty").modal("hide");
-    $("#modalAddNewParty").modal("show");
+function callAddNewSupplierModal() {
+    $("#modalShowSearchAddNewSupplier").modal("hide");
+    $("#modalAddNewSupplier").modal("show");
 }
 function ItemMstrChangeFun(ID) {
     var ID = ID.split("intItemMstrsId")[1];
@@ -556,7 +562,7 @@ function ItemMstrChangeFun(ID) {
 $(document).ready(function () {
     $('#vchSearchPartyDtl').select2({
         ajax: {
-            url: '{{ route("Party.Party.GetPartDtlWithNameNo") }}',
+            url: '{{ route("Supplier.Supplier.GetSupplierDtlWithNameNo") }}',
             dataType: 'json',
             delay: 250,
             processResults: function (data) {
@@ -564,24 +570,24 @@ $(document).ready(function () {
                     results: $.map(data, function (item) {
                         return {
                             id: item.id,
-                            text: item.varPartyName + " ("+item.varMobileNo+")" // Adjust the property name as needed
+                            text: item.varSupplierName + " ("+item.varMobileNo+")" // Adjust the property name as needed
                         }
                     })
                 };
             },
             cache: true
         },
-        placeholder: 'Search for a party name/mobile',
+        placeholder: 'Search for a supplier name/mobile',
         minimumInputLength: 2
     });
     $('#vchSearchPartyDtl').on('change', function (e) {
-        var party_dtls_id = $(this).val();
+        var supplier_dtls_id = $(this).val();
         try{
             $.ajax({
                 type:"POST",
-                url: '{{ route("Party.Party.getPartyDtlForInvoiceById") }}',
+                url: '{{ route("Supplier.Supplier.getSupplierDtlForInvoiceById") }}',
                 dataType: "json",
-                data: {party_dtls_id:party_dtls_id},
+                data: {supplier_dtls_id:supplier_dtls_id},
                 beforeSend: function() {
                     $("#vchSearchPartyDtl").LoadingOverlay("show", {
                         background  : "rgb(134, 168, 192, 0.5)"
@@ -589,13 +595,13 @@ $(document).ready(function () {
                 },
                 success:function(data){
                     if(data.status==200){
-                        $("#party_dtls_id").val(data.party_dtls_id);
-                        $("#party_intSupplyPlaceStateMstrsId").val(data.party_intSupplyPlaceStateMstrsId);
-                        $("#partyDtlHideShow").html(data.html);
-                        $("#partyDtlHideShow").show();
-                        $("#partyAddOptionlHideShow").hide();
-                        $("#modalShowSearchAddNewParty").modal("hide");
-                        $("#card-options-remove-party-dtl").show();
+                        $("#supplier_dtls_id").val(data.supplier_dtls_id);
+                        $("#supplier_intSupplyPlaceStateMstrsId").val(data.supplier_intSupplyPlaceStateMstrsId);
+                        $("#supplierDtlHideShow").html(data.html);
+                        $("#supplierDtlHideShow").show();
+                        $("#supplierAddOptionlHideShow").hide();
+                        $("#modalShowSearchAddNewSupplier").modal("hide");
+                        $("#card-options-remove-supplier-dtl").show();
                         finalItemDtlCalc("Others");
                     }
                     $("#vchSearchPartyDtl").LoadingOverlay("hide", true);
@@ -608,52 +614,15 @@ $(document).ready(function () {
             alert(err.message);
         }
     });
-    $("#form-party-dtl").on("submit", function(event){
-        event.preventDefault();
-        var formValues= $(this).serialize();
-        try{
-            $.ajax({
-                type:"POST",
-                url: '{{ route("Party.Party.PostAdd") }}',
-                dataType: "json",
-                data: formValues,
-                beforeSend: function() {
-                    $("#btn-party-dtl-submit").LoadingOverlay("show", {
-                        background  : "rgb(134, 168, 192, 0.5)"
-                    });
-                },
-                success:function(data){
-                    if(data.status==200){
-                        $("#party_dtls_id").val(data.party_dtls_id);
-                        $("#party_intSupplyPlaceStateMstrsId").val(data.party_intSupplyPlaceStateMstrsId);
-                        $("#partyDtlHideShow").html(data.html);
-                        $("#partyDtlHideShow").show();
-                        $("#partyAddOptionlHideShow").hide();
-                        infoNotify(data.msg);
-                        $("#modalAddNewParty").modal("hide");
-                        //$(".card-header > .card-options > .card-options-remove").shpw();
-                        $("#card-options-remove-party-dtl").show();
-                        finalItemDtlCalc("Others");
-                    }
-                    $("#btn-party-dtl-submit").LoadingOverlay("hide", true);
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    $("#btn-party-dtl-submit").LoadingOverlay("hide", true);
-                }
-            });
-        }catch (err) {
-            alert(err.message);
-        }
-    });
-    $("#card-options-remove-party-dtl").click(function(){
-        $("#party_dtls_id").val("");
-        $("#party_intSupplyPlaceStateMstrsId").val("");
-        $("#partyAddOptionlHideShow").show();
-        $("#partyDtlHideShow").hide();
-        $("#card-options-remove-party-dtl").hide();
+    $("#card-options-remove-supplier-dtl").click(function(){
+        $("#supplier_dtls_id").val("");
+        $("#supplier_intSupplyPlaceStateMstrsId").val("");
+        $("#supplierAddOptionlHideShow").show();
+        $("#supplierDtlHideShow").hide();
+        $("#card-options-remove-supplier-dtl").hide();
         finalItemDtlCalc("others");
     });
-    //$("#modalAddNewParty").modal("show");
+    //$("#modalAddNewSupplier").modal("show");
     //$(".card-header > .card-options > .card-options-remove").hide();
     //infoNotify("asdsad");
 });
@@ -851,10 +820,10 @@ function finalItemDtlCalc(keyName) {
     });
     /* end taxable total amount culculation */
     if (totalIntGstPer > 0) {
-        var party_intSupplyPlaceStateMstrsId = $("#party_intSupplyPlaceStateMstrsId").val();
+        var supplier_intSupplyPlaceStateMstrsId = $("#supplier_intSupplyPlaceStateMstrsId").val();
         var owner_intSupplyPlaceStateMstrsId = $("#owner_intSupplyPlaceStateMstrsId").val();
         $(".decTaxableAmtHideShow").show();
-        if (party_intSupplyPlaceStateMstrsId == owner_intSupplyPlaceStateMstrsId) {
+        if (supplier_intSupplyPlaceStateMstrsId == owner_intSupplyPlaceStateMstrsId) {
             $(".decIGSTAmtHideShow").hide();
             $(".decSGSTAmtHideShow").show();
             $(".decCGSTAmtShowHide").show();
@@ -917,56 +886,152 @@ function finalItemDtlCalc(keyName) {
     var decBalanceAmt = parseFloat(decTotalAmt - decReceiveAmt);
     $("#decBalanceAmt").val(decBalanceAmt.toFixed(2));
 }
+function addFormSupplierDtl() {
+    var formValues= $("#form-supplier-dtl").serialize();
+    try{
+        $.ajax({
+            type:"POST",
+            url: '{{ route("Supplier.Supplier.PostAdd") }}',
+            dataType: "json",
+            data: formValues,
+            beforeSend: function() {
+                $("#btn-supplier-dtl-submit").LoadingOverlay("show", {
+                    background  : "rgb(134, 168, 192, 0.5)"
+                });
+            },
+            success:function(data){
+                if(data.status==200){
+                    $("#supplier_dtls_id").val(data.supplier_dtls_id);
+                    $("#supplier_intSupplyPlaceStateMstrsId").val(data.supplier_intSupplyPlaceStateMstrsId);
+                    $("#supplierDtlHideShow").html(data.html);
+                    $("#supplierDtlHideShow").show();
+                    $("#supplierAddOptionlHideShow").hide();
+                    infoNotify(data.msg);
+                    $("#modalAddNewSupplier").modal("hide");
+                    //$(".card-header > .card-options > .card-options-remove").shpw();
+                    $("#card-options-remove-supplier-dtl").show();
+                    finalItemDtlCalc("Others");
+                }
+                $("#btn-supplier-dtl-submit").LoadingOverlay("hide", true);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                $("#btn-supplier-dtl-submit").LoadingOverlay("hide", true);
+            }
+        });
+    }catch (err) {
+        alert(err.message);
+    }
+}
 $(document).ready(function () {
     jQuery.validator.addMethod("dateFormatYYYMMDD", function(value, element) {
         return this.optional(element) || /^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))+$/i.test(value);
     }, "Invalid format (YYYY-MM-DD)"); 
 
-    jQuery.validator.addMethod("dateFormatYYYMM", function(value, element) {
-        return this.optional(element) || /^([12]\d{3}-(0[1-9]|1[0-2]))+$/i.test(value);
-    }, "Invalid format (YYYY-MM)"); 
-
     jQuery.validator.addMethod("alphaSpace", function(value, element) {
         return this.optional(element) || /^[a-zA-Z ]+$/i.test(value);
     }, "Letters only please (a-z, A-Z )");
 
-    jQuery.validator.addMethod("alphaNumCommaSlash", function(value, element) {
-        return this.optional(element) || /^[a-zA-Z0-9- ]+$/i.test(value);
-    }, "Letters only please (a-z, A-Z, 0-9, -)");
+    jQuery.validator.addMethod("alphaNumSlashHyphenCommaSpace", function(value, element) {
+        return this.optional(element) || /^[0-9a-zA-Z\/\-, ]+$/i.test(value);
+    }, "Letters only please (a-z, A-Z, 0-9, /)");
 
-    jQuery.validator.addMethod("alphaNumhyphen", function(value, element) {
-        return this.optional(element) || /^[a-zA-Z0-9- ]+$/i.test(value);
+    jQuery.validator.addMethod("alphaNumSlashHyphen", function(value, element) {
+        return this.optional(element) || /^[0-9a-zA-Z\/-]+$/i.test(value);
     }, "Letters only please (a-z, A-Z, 0-9, -)"); 
 
-    jQuery.validator.addMethod("numDot", function(value, element) {
-        return this.optional(element) || /^\d+(?:\.\d+)+$/i.test(value);
-    }, "Letters only please (0-9.)"); 
+    jQuery.validator.addMethod("onlyNum", function(value, element) {
+        return this.optional(element) || /^[1-9]\d*$/i.test(value);
+    }, "Letters only please (0-9)"); 
+
+    jQuery.validator.addMethod("amountFormat", function(value, element) {
+        return this.optional(element) || /^\d+(\.\d{1,2})?$/i.test(value);
+    }, "Letters only please (0-9) or (0.00-9.99)"); 
 
     jQuery.validator.addMethod('min_greater_zero', function (value, element) {
         return value > 0;
     }, "Please enter a value greater than 0");
 
+    $('.select2').on('change', function() {
+        $(this).valid();
+    });
+    $("#form-supplier-dtl").validate({
+        errorClass: "error-jquery-validation",
+        rules: {
+            "varSupplierName": {
+                required: true,
+                alphaSpace: true,
+            },
+            "varMobileNo": {
+                required: true,
+                digits: true,
+            },
+            "intSupplyPlaceStateMstrsId": {
+                required: true
+            },
+        },
+        errorPlacement: function(label, element) {
+            if (element.hasClass('select2')) {
+                label.insertAfter(element.next('.select2-container')).addClass('mt-2 text-danger');
+            } else {
+                label.addClass('mt-2 text-danger');
+                label.insertAfter(element);
+            }
+        },
+        submitHandler: function (form) {
+            addFormSupplierDtl(form);
+        },
+    });
     $("#form-invoice").validate({
+        errorClass: "error-jquery-validation",
         rules: {
             "dtInvoiceDate": {
                 required: true,
                 dateFormatYYYMMDD: true,
             },
             "intItemMstrsId[]": {
-                required: true,
+                required: true
             },
-            
             "intSubItemMstrsId[]": {
-                required: true,
+                required: true
+            },
+            "varProductSerialNo[]": {
+                alphaNumSlashHyphen: true
             },
             "intQty[]": {
                 required: true,
+                onlyNum: true,
+                range: [1,50]
             },
             "decSalesPrice[]": {
                 required: true,
+                amountFormat: true,
             },
-            "decAmount[]": {
+            "decDiscountPer[]": {
+                amountFormat: true,
+                min: 0,
+                max: 99
+            },
+            "decDiscountAmt[]": {
+                amountFormat: true
+            },
+            "varNotes": {
+                alphaNumSlashHyphenCommaSpace: true
+            },
+            "varTermsNCondition": {
+                alphaNumSlashHyphenCommaSpace: true
+            },
+            "decAdditionalChargesAmt": {
+                amountFormat: true,
+            },
+            "decExtraDiscountAmt": {
+                amountFormat: true,
+            },
+            "decReceiveAmt": {
+                amountFormat: true,
+            },
+            "varBillRecceiptFilePath": {
                 required: true,
+                extension: "mp3|mpeg|mp4"
             },
         },
         messages: {
@@ -974,17 +1039,16 @@ $(document).ready(function () {
                 required: "Please enter your email address",
             },
         },
-        errorPlacement: function (error, element) {
-            if (element.hasClass("select2-hidden-accessible")) {
-            // If the element is a Select2 input, place the error message after its parent container
-            error.insertAfter(element.parent());
+        errorPlacement: function(label, element) {
+            if (element.hasClass('select2')) {
+                label.insertAfter(element.next('.select2-container')).addClass('mt-2 text-danger');
             } else {
-            // For other elements, use the default placement
-            error.insertAfter(element);
+                label.addClass('mt-2 text-danger');
+                label.insertAfter(element);
             }
         },
         submitHandler: function (form) {
-            // The form is valid; submit it via AJAX
+            if(otherValidation() == false) return false; 
             submitForm(form);
         },
     });
@@ -994,22 +1058,34 @@ $(document).ready(function () {
             var formData = new FormData(form);
             $.ajax({
                 type: "POST",
-                enctype: 'multipart/form-data',
-                url: 'data.php',
+                enctype: "multipart/form-data",
+                url: "{{ route('PostPurchasesInvoiceSubmit') }}",
                 dataType: "json",
                 data: formData,
                 processData: false,  // Don't process the data
                 contentType: false,  // Don't set content type
                 beforeSend: function() {
                     // You can add loading overlay or any other pre-send logic here
+                    infoNotify("Please wait, invoice is generating !!!");
+                    $("#form-invoice").LoadingOverlay("show", {
+                        background  : "rgb(134, 168, 192, 0.5)"
+                    });
                 },
                 success: function(data) {
                     if (data.status == 200) {
-                        // Handle success here
+                        infoNotify(data.msg);
+                        window.location.replace("/Purchases/Invoice/GetInvoiceDtlById/"+data.data.intPurchasesId);
+                    } else if (data.status == 400) {
+                        jQuery.each(data.data, function(index, itemData) {
+                            infoNotify(itemData);
+                            return false;
+                        });
                     }
+                    $("#form-invoice").LoadingOverlay("hide", true);
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.log("ERROR: ", errorThrown);
+                    $("#form-invoice").LoadingOverlay("hide", true);
                 }
             });
         } catch (err) {
@@ -1017,5 +1093,28 @@ $(document).ready(function () {
         }
     }
 });
+function otherValidation() {
+    var proccess = true;
+
+    var supplier_dtls_id = $("#supplier_dtls_id").val();
+    var supplier_intSupplyPlaceStateMstrsId = $("#supplier_intSupplyPlaceStateMstrsId").val();
+    if (supplier_dtls_id == "" && supplier_intSupplyPlaceStateMstrsId == "") {
+        infoNotify("You are not select the party detail. !!!"); proccess = false;
+    }
+    var decBalanceAmt = $("#decBalanceAmt").val();
+    if (decBalanceAmt !="" && decBalanceAmt < 0) {
+        $("#decBalanceAmt").focus();
+        infoNotify("You don't pay advance amount. !!!"); proccess = false;
+    }
+    if (proccess) {
+        if (decBalanceAmt !="" && decBalanceAmt > 0) {
+            var confirmMsg = "You want to submit this invoice with balance amount. !!!";
+            if (!confirm(confirmMsg) == true) {
+                proccess = false;
+            }
+        }
+    }
+    return proccess;
+}
 </script>
 @endpush

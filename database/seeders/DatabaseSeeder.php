@@ -29,7 +29,8 @@ class DatabaseSeeder extends Seeder
             tbl_sub_item_mstrs::class,
 
             //other
-            tbl_party_dtls::class
+            tbl_party_dtls::class,
+            tbl_supplier_dtls::class
         ]);
     }
 }

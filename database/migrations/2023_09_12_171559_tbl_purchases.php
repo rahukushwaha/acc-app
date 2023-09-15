@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('varBillingAddress')->nullable()->comment('Customer Billing Address');
             $table->integer('intSupplyPlaceStateMstrsId')->nullable()->comment('Customer Place of Supply State Id');
             $table->string('varSupplyPlaceStateName', 10)->nullable()->comment('Customer Place of Supply State Name');
-            $table->string('varGstin', 10)->nullable()->comment('Customer GSTIN No');
+            $table->string('varGstin')->nullable()->comment('Customer GSTIN No');
             $table->string('varInvoiceNo')->nullable();
             $table->date('dtInvoiceDate')->nullable();
             $table->tinyInteger('intPaymentTerms')->nullable()->comment('Payment Terms in days');
