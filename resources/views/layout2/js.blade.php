@@ -31,6 +31,15 @@
         <script src="{{ asset('assets/js/loading-overlay/loadingoverlay2.1.7.min.js') }}"></script>
         <!-- Key Press Custom Validation JS -->
         <script src="{{ asset('assets/js/others/CustomKeyValidation.js') }}"></script>
+        <!-- Tooltip and Popover JS -->
+        <!-- <script src="{{ asset('assets/js/tooltip%26popover.js') }}"></script> -->
+        <!-- DATA TABLE JS-->
+		<script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+		<script src="{{ asset('assets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
+		<script src="{{ asset('assets/plugins/datatable/js/dataTables.buttons.min.js') }}"></script>
+		<script src="{{ asset('assets/plugins/datatable/js/buttons.bootstrap5.min.js') }}"></script>
+		<script src="{{ asset('assets/plugins/datatable/dataTables.responsive.min.js') }}"></script>
+		<script src="{{ asset('assets/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
         <script>
             function successNotify(message){
                 notif({

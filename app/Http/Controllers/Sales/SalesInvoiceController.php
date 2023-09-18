@@ -16,9 +16,8 @@ class SalesInvoiceController extends Controller
     use UserUtility, DateUtility;
     public function Index()
     {
-        echo $this->testFun();
         //Session::flash('infoNotify', 'alert-danger');
-        //return view('Sales.index');
+        return view('Sales.index');
     }
 
     public function PostSubmit(Request $request)
@@ -29,27 +28,22 @@ class SalesInvoiceController extends Controller
             'party_dtls_id' => 'required',
             'party_intSupplyPlaceStateMstrsId' => 'required',
             'owner_intSupplyPlaceStateMstrsId' => 'required',
-            'varBillRecceiptFilePath' => 'required|file|mimes:jpg,png,pdf|max:4096',
+            'varBillRecceiptFilePath' => 'file|mimes:jpg,png,pdf|max:4096',
             //'trst' => 'required',
         ]);
         //$validator->errors()->add('field','Something is wrong with this field!'); it's not working
 
         if ($validator->fails()) {
             $errors = $validator->errors();
-            return response()->json(['message' => 'Validation failed', 'errors' => $errors], 400);
+            $response = [
+                "status" => 400,
+                "msg" => "Validation failed !!!",
+                "data" => $errors
+            ];
+            return response()->json($response);
         }
         DB::beginTransaction();
         try {
-            $varBillRecceiptFilePath = "";
-            if ($request->hasFile('varBillRecceiptFilePath')) {
-                $file = $request->file('varBillRecceiptFilePath');
-                $newFileNameTemp = Carbon::now()->format('YmdHis'). '_' .uniqid() . '.' . $file->extension();
-                $newFileName = 'PurchaseInvoice/'.$newFileNameTemp;
-                $uploadPath = base_path('uploads/PurchaseInvoice');
-                $file->move($uploadPath, $newFileName);
-                $varBillRecceiptFilePath = $newFileName;
-            }
-
             $partyDtl = DB::table("tbl_party_dtls")->where("id", $inputs["party_dtls_id"])->first();
             $stateDtl = DB::table("tbl_state_mstrs")->select('varStateName')->where("id", $inputs["party_intSupplyPlaceStateMstrsId"])->first();
 
@@ -65,13 +59,13 @@ class SalesInvoiceController extends Controller
             }
 
             
-            $lastInvoiceDtl = DB::table('tbl_purchases')
+            $lastInvoiceDtl = DB::table('tbl_sales')
                                 ->whereBetween("created_at", [$startDateFY, $endDateFY])
                                 ->lockForUpdate()
                                 ->count();
-            $varInvoiceNo = "INP".$currFy.str_pad(($lastInvoiceDtl+1),5,"0", STR_PAD_LEFT);
+            $varInvoiceNo = "INS".$currFy.str_pad(($lastInvoiceDtl+1),5,"0", STR_PAD_LEFT);
             /* == invoice format
-            > 3 digit = start with INVP (IN = INVOICE, P = PURCHASE)
+            > 3 digit = start with INVP (IN = INVOICE, S = PURCHASE)
             > 4 digit = current financial year
             > 5 digit = sequence of number
                         > start with 00001
@@ -79,8 +73,8 @@ class SalesInvoiceController extends Controller
             */
 
             $insertData = [
-                "intSupplierDtlsId" => $inputs["party_dtls_id"],
-                "varSupplierName" => $partyDtl->varPartyName,
+                "intPartyDtlsId" => $inputs["party_dtls_id"],
+                "varPartyName" => $partyDtl->varPartyName,
                 "varMobileNo" => $partyDtl->varMobileNo,
                 "varBillingAddress" => $partyDtl->varBillingAddress,
                 "intSupplyPlaceStateMstrsId" => $partyDtl->intSupplyPlaceStateMstrsId,
@@ -107,22 +101,20 @@ class SalesInvoiceController extends Controller
                 "decTotalAmt" => $inputs["decTotalAmt"],
                 "decReceiveAmt" => $inputs["decReceiveAmt"],
                 "decBalanceAmt" => $inputs["decBalanceAmt"],
-                "decPreviousSupplierBalanceAmt" => "0.00",
-                "isSupplierFullPaid" => ($inputs["decBalanceAmt"] == 0)?1:0,  
+                "decPreviousPartyBalanceAmt" => "0.00",
+                "isPartyFullPaid" => ($inputs["decBalanceAmt"] == 0)?1:0,  
                 "varNotes" => $inputs["varNotes"],
                 "varTermsNCondition" => $inputs["varTermsNCondition"],
-                "varBillReceiptNo" => $inputs["varBillReceiptNo"],
-                "varBillRecceiptFilePath" => $varBillRecceiptFilePath,
                 "bitDeletedFlag" => 0,
                 "intCreatedby" => $this->getUserId(),
                 "created_at" => Carbon::now()->format('Y-m-d H:i:s'),
             ];
-            $intPurchasesId = DB::table("tbl_purchases")->insertGetId($insertData);
-
+            $intSalesId = DB::table("tbl_sales")->insertGetId($insertData);
+            
             if (isset($inputs["intItemMstrsId"]) && sizeof($inputs["intItemMstrsId"]) > 0) {
                 foreach ($inputs["intItemMstrsId"] as $key => $inputsTemp) {
                     $insertData = [
-                        "intPurchasesId" => $intPurchasesId,
+                        "intSalesId" => $intSalesId,
                         "intItemMstrsId" => $inputs["intItemMstrsId"][$key],
                         "intSubItemMstrsId" => $inputs["intSubItemMstrsId"][$key],
                         "varProductSerialNo" => $inputs["varProductSerialNo"][$key],
@@ -138,13 +130,62 @@ class SalesInvoiceController extends Controller
                         "intCreatedby" => $this->getUserId(),
                         "created_at" => Carbon::now()->format('Y-m-d H:i:s'),
                     ];
-                    DB::table("tbl_purchase_dtls")->insert($insertData);
+                    DB::table("tbl_sale_dtls")->insert($insertData);
                 }
             }
-            DB::rollBack();
-        } catch(Exception $e) {
-
             DB::commit();
+            $response = [
+                "status" => 200,
+                "msg" => "Sale Invoice Created !!!",
+                "data" => ["intSalesId" => $intSalesId]
+            ];
+            return response()->json($response);
+        } catch(Exception $e) {
+            DB::rollBack();
+            $errors["exception"] = [
+                $e->getMessage()
+            ];
+            $response = [
+                "status" => 400,
+                "msg" => "sValidation failed !!!",
+                "data" => $errors
+            ];
+            return response()->json($response);
         }
+    }
+
+    public function GetInvoiceDtlById($intSalesId = null) {
+        if (is_null($intSalesId)) {
+            
+        }
+        //echo $intSalesId = $intSalesId;
+        $purDtl = DB::table('tbl_sales')
+                            ->where('id', $intSalesId)
+                            ->where('bitDeletedFlag', 0)
+                            ->first();
+        if ($purDtl) {
+            $purListDtl = DB::table('tbl_sale_dtls as pd')
+                        ->join("tbl_item_mstrs as im", "im.id", "=", "pd.intItemMstrsId")
+                        ->join("tbl_sub_item_mstrs as sim", "sim.id", "=", "pd.intSubItemMstrsId")
+                        ->where('pd.intSalesId', $intSalesId)
+                        ->where('pd.bitDeletedFlag', 0)
+                        ->select(DB::raw('pd.intItemMstrsId, 
+                                            im.varItem,
+                                            pd.intSubItemMstrsId, 
+                                            sim.varSubItem,
+                                            pd.varProductSerialNo, 
+                                            pd.varSAC, 
+                                            pd.intQty, 
+                                            pd.decSalesPrice, 
+                                            pd.decDiscountPer, 
+                                            pd.decDiscountAmt, 
+                                            pd.decTaxAmt, 
+                                            pd.intGstPer, 
+                                            pd.decAmount'))
+                        ->get();
+            $purDtl->purListDtl = $purListDtl;
+        }
+        //dd($purDtl);
+        return view('Sales.invoice', ["purDtl" => $purDtl]);
     }
 }

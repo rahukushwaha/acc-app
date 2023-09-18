@@ -8,6 +8,7 @@ use App\Traits\UserUtility;
 use App\Traits\DateUtility;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -150,7 +151,7 @@ class PurchaseInvoiceController extends Controller
             $response = [
                 "status" => 200,
                 "msg" => "Purchase Invoice Created !!!",
-                "data" => $intPurchasesId
+                "data" => ["intPurchasesId" => $intPurchasesId]
             ];
             return response()->json($response);
         } catch(Exception $e) {
@@ -167,7 +168,38 @@ class PurchaseInvoiceController extends Controller
         }
     }
 
-    public function GetInvoiceDtlById(Request $request) {
-        echo $var1 = $request->input('intPurchasesId');
+    public function GetInvoiceDtlById($intPurchasesId = null) {
+        if (is_null($intPurchasesId)) {
+            
+        }
+        //echo $intPurchasesId = $intPurchasesId;
+        $purDtl = DB::table('tbl_purchases')
+                            ->where('id', $intPurchasesId)
+                            ->where('bitDeletedFlag', 0)
+                            ->first();
+        if ($purDtl) {
+            $purListDtl = DB::table('tbl_purchase_dtls as pd')
+                        ->join("tbl_item_mstrs as im", "im.id", "=", "pd.intItemMstrsId")
+                        ->join("tbl_sub_item_mstrs as sim", "sim.id", "=", "pd.intSubItemMstrsId")
+                        ->where('pd.intPurchasesId', $intPurchasesId)
+                        ->where('pd.bitDeletedFlag', 0)
+                        ->select(DB::raw('pd.intItemMstrsId, 
+                                            im.varItem,
+                                            pd.intSubItemMstrsId, 
+                                            sim.varSubItem,
+                                            pd.varProductSerialNo, 
+                                            pd.varSAC, 
+                                            pd.intQty, 
+                                            pd.decSalesPrice, 
+                                            pd.decDiscountPer, 
+                                            pd.decDiscountAmt, 
+                                            pd.decTaxAmt, 
+                                            pd.intGstPer, 
+                                            pd.decAmount'))
+                        ->get();
+            $purDtl->purListDtl = $purListDtl;
+        }
+        //dd($purDtl);
+        return view('Purchases.invoice', ["purDtl" => $purDtl]);
     }
 }

@@ -33,10 +33,12 @@ return new class extends Migration
             $table->timestamps();
 
             // index
+            $table->index(['varBarcode']);
             $table->index(['intPurchasesId']);
             $table->index(['intItemMstrsId']);
             $table->index(['intSubItemMstrsId']);
             $table->index(['varProductSerialNo']);
+            $table->index(['bitDeletedFlag']);
         });
     }
 

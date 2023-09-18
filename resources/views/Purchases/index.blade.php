@@ -16,7 +16,7 @@
 <div class="app-content main-content mt-0">
     <div class="side-app">
         <!-- CONTAINER -->
-        <div class="main-container container-fluid">
+        <div class="main-container">
             <!-- PAGE-HEADER -->
             <div class="page-header"></div>
             <!-- PAGE-HEADER END -->
@@ -113,11 +113,11 @@
                                                                 <th>ITEM GROUP&nbsp&nbsp&nbsp&nbsp&nbsp</th>
                                                                 <th>ITEM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
                                                                 <th>SAC&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
-                                                                <th>QTY&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
-                                                                <th>PRICE/ITEM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                                                                <th>QTY&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                                                                <th>PRICE/ITEM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
                                                                 <th>DISCOUNT&nbsp&nbsp&nbsp&nbsp</th>
                                                                 <th>TAX&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
-                                                                <th>AMOUNT&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                                                                <th>AMOUNT&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
                                                                 <th>
                                                                     <a href="javascript:void(0)" role="button" class="text-primary text-center add-invoice-item-btn mt-2" onclick="itemAppendFun();">
                                                                         <i class="fa fa-cart-plus fs-20"></i>
@@ -140,20 +140,20 @@
                                                                     <select class="select2 form-select select2-dropdown" id="intSubItemMstrsId1" name="intSubItemMstrsId[]" data-placeholder="SELECT" style="width:100%">
                                                                         <option value="">select item</option>
                                                                     </select>
-                                                                    <textarea class="form-control varProductSerialNo" id="varProductSerialNo1" name="varProductSerialNo[]" placeholder="Product Serial No."></textarea>
+                                                                    <textarea class="form-control border-top border-info varProductSerialNo" id="varProductSerialNo1" name="varProductSerialNo[]" placeholder="Product Serial No."></textarea>
                                                                 </td>
                                                                 <td style="width: 150px;">
                                                                     <input type="text" class="form-control varSAC" id="varSAC1" name="varSAC[]" placeholder="SAC" />
                                                                 </td>
-                                                                <td style="width: 120px;">
+                                                                <td>
                                                                     <input type="text" class="form-control intQty" id="intQty1" name="intQty[]" placeholder="QTR" onkeyup="itemDtlCalc(1, 'intQty')" onkeypress="return isNum(event);"  maxlength="2" />
                                                                 </td>
-                                                                <td style="width: 150px;">
+                                                                <td>
                                                                     <input type="text" class="form-control decSalesPrice" id="decSalesPrice1" name="decSalesPrice[]" placeholder="&#8377;" onkeyup="itemDtlCalc(1, 'decSalesPrice')" onkeypress="return isNumDot(event);"  maxlength="9"/>
                                                                 </td>
                                                                 <td style="width: 80px;">
                                                                     <input type="text" class="form-control decDiscountPer" id="decDiscountPer1" name="decDiscountPer[]" placeholder="%" onkeyup="itemDtlCalc(1, 'decDiscountPer')" onkeypress="return isNumDot(event);"  maxlength="5" />
-                                                                    <input type="text" class="form-control decDiscountAmt" id="decDiscountAmt1" name="decDiscountAmt[]" placeholder="&#8377;" onkeyup="itemDtlCalc(1, 'decDiscountAmt')" onkeypress="return isNumDot(event);"  maxlength="5" />
+                                                                    <input type="text" class="form-control decDiscountAmt" id="decDiscountAmt1" name="decDiscountAmt[]" placeholder="&#8377;" onkeyup="itemDtlCalc(1, 'decDiscountAmt')" onkeypress="return isNumDot(event);"  maxlength="7" />
                                                                 </td>
                                                                 <td style="width: 150px;">
                                                                     <input type="text" class="form-control decTaxAmt" id="decTaxAmt1" name="decTaxAmt[]" placeholder="&#8377;" readonly />
@@ -165,7 +165,7 @@
                                                                         <option value="28">28%</option>
                                                                     </select>
                                                                 </td>
-                                                                <td style="width: 150px;">
+                                                                <td>
                                                                     <input type="text" class="form-control decAmount" id="decAmount1" name="decAmount[]" placeholder="&#8377;" readonly />
                                                                 </td>
                                                                 <th>
@@ -237,7 +237,7 @@
                                                         <div class="row">
                                                             <div class="col-sm-12 col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="form-label" for="varBillReceiptNo">Bill Receipt No. {{ uniqid() }}</label>
+                                                                    <label class="form-label" for="varBillReceiptNo">Bill Receipt No. </label>
                                                                     <input type="text" class="form-control" id="varBillReceiptNo" name="varBillReceiptNo" placeholder="Bill Receipt No." />
                                                                 </div>
                                                             </div>
@@ -646,22 +646,22 @@ function itemAppendFun() {
     itemTBodyAppend += '<select class="select2 form-select select2-dropdown" id="intSubItemMstrsId'+itemAppendCount+'" name="intSubItemMstrsId[]" data-placeholder="SELECT" style="width:100%">';
     itemTBodyAppend += '<option>select item</option>';
     itemTBodyAppend += '</select>';
-    itemTBodyAppend += '<textarea class="form-control varProductSerialNo" id="varProductSerialNo'+itemAppendCount+'" name="varProductSerialNo[]" placeholder="Product Serial No."></textarea>';
+    itemTBodyAppend += '<textarea class="form-control border-top border-info varProductSerialNo" id="varProductSerialNo'+itemAppendCount+'" name="varProductSerialNo[]" placeholder="Product Serial No."></textarea>';
     itemTBodyAppend += '</td>';
-    itemTBodyAppend += '<td style="width: 150px;">';
+    itemTBodyAppend += '<td>';
     itemTBodyAppend += '<input type="text" class="form-control varSAC" id="varSAC'+itemAppendCount+'" name="varSAC[]" placeholder="SAC" />';
     itemTBodyAppend += '</td>';
-    itemTBodyAppend += '<td style="width: 100px;">';
+    itemTBodyAppend += '<td>';
     itemTBodyAppend += '<input type="text" class="form-control intQty" id="intQty'+itemAppendCount+'" name="intQty[]" placeholder="QTR" onkeyup="itemDtlCalc('+itemAppendCount+', '+intQtySingleQuote+')" onkeypress="return isNum(event);"  maxlength="2" />';
     itemTBodyAppend += '</td>';
-    itemTBodyAppend += '<td style="width: 150px;">';
+    itemTBodyAppend += '<td>';
     itemTBodyAppend += '<input type="text" class="form-control decSalesPrice" id="decSalesPrice'+itemAppendCount+'" name="decSalesPrice[]" placeholder="&#8377;" onkeyup="itemDtlCalc('+itemAppendCount+', '+decSalesPriceSingleQuote+')" onkeypress="return isNumDot(event);"  maxlength="9" />';
     itemTBodyAppend += '</td>';
-    itemTBodyAppend += '<td style="width: 80px;">';
+    itemTBodyAppend += '<td>';
     itemTBodyAppend += '<input type="text" class="form-control decDiscountPer" id="decDiscountPer'+itemAppendCount+'" name="decDiscountPer[]" placeholder="%" onkeyup="itemDtlCalc('+itemAppendCount+', '+decDiscountPerSingleQuote+')" onkeypress="return isNumDot(event);"  maxlength="5" />';
-    itemTBodyAppend += '<input type="text" class="form-control decDiscountAmt" id="decDiscountAmt'+itemAppendCount+'" name="decDiscountAmt[]" placeholder="&#8377;" onkeyup="itemDtlCalc('+itemAppendCount+', '+decDiscountAmtSingleQuote+')" onkeypress="return isNumDot(event);"  maxlength="5" />';
+    itemTBodyAppend += '<input type="text" class="form-control decDiscountAmt" id="decDiscountAmt'+itemAppendCount+'" name="decDiscountAmt[]" placeholder="&#8377;" onkeyup="itemDtlCalc('+itemAppendCount+', '+decDiscountAmtSingleQuote+')" onkeypress="return isNumDot(event);"  maxlength="7" />';
     itemTBodyAppend += '</td>';
-    itemTBodyAppend += '<td style="width: 150px;">';
+    itemTBodyAppend += '<td>';
     itemTBodyAppend += '<input type="text" class="form-control decTaxAmt" id="decTaxAmt'+itemAppendCount+'" name="decTaxAmt[]" placeholder="&#8377;" readonly />';
     itemTBodyAppend += '<select class="form-select intGstPer" id="intGstPer'+itemAppendCount+'" name="intGstPer[]" onchange="itemDtlCalc('+itemAppendCount+', '+intGstPerSingleQuote+')">';
     itemTBodyAppend += '<option value="0">0%</option>';
@@ -671,7 +671,7 @@ function itemAppendFun() {
     itemTBodyAppend += '<option value="28">28%</option>';
     itemTBodyAppend += '</select>';
     itemTBodyAppend += '</td>';
-    itemTBodyAppend += '<td style="width: 150px;">';
+    itemTBodyAppend += '<td>';
     itemTBodyAppend += '<input type="text" class="form-control decAmount" id="decAmount'+itemAppendCount+'" name="decAmount[]" placeholder="&#8377;" readonly />';
     itemTBodyAppend += '</td>';
     itemTBodyAppend += '<th>';
@@ -743,6 +743,12 @@ function itemDtlCalc(id, keyName) {
     }
     if (decDiscountPer == "" && keyName=="decDiscountPer") {
         $("#decDiscountAmt"+id).val("");
+    }
+    if (!(keyName=="decDiscountPer" || keyName=="decDiscountAmt")) {
+        if (decDiscountPer > 0) {
+            decDiscountAmt = parseFloat(decAmountTemp * decDiscountPer / 100);
+            $("#decDiscountAmt"+id).val(decDiscountAmt.toFixed(2));
+        }
     }
     /* end discount calc*/
     decAmountTemp = parseFloat(decAmountTemp + decTaxAmt);
@@ -866,7 +872,6 @@ function finalItemDtlCalc(keyName) {
     }
 
     var decTotalAmt = parseFloat(decSubTotalAmt+(decAdditionalChargesAmt-decExtraDiscountAmt));
-    
 
     var intIsRoundOffIsChecked = 0;
     if($("#intIsRoundOff").prop('checked') == true){
@@ -885,42 +890,6 @@ function finalItemDtlCalc(keyName) {
     if (decReceiveAmt == ""){ decReceiveAmt = 0; }
     var decBalanceAmt = parseFloat(decTotalAmt - decReceiveAmt);
     $("#decBalanceAmt").val(decBalanceAmt.toFixed(2));
-}
-function addFormSupplierDtl() {
-    var formValues= $("#form-supplier-dtl").serialize();
-    try{
-        $.ajax({
-            type:"POST",
-            url: '{{ route("Supplier.Supplier.PostAdd") }}',
-            dataType: "json",
-            data: formValues,
-            beforeSend: function() {
-                $("#btn-supplier-dtl-submit").LoadingOverlay("show", {
-                    background  : "rgb(134, 168, 192, 0.5)"
-                });
-            },
-            success:function(data){
-                if(data.status==200){
-                    $("#supplier_dtls_id").val(data.supplier_dtls_id);
-                    $("#supplier_intSupplyPlaceStateMstrsId").val(data.supplier_intSupplyPlaceStateMstrsId);
-                    $("#supplierDtlHideShow").html(data.html);
-                    $("#supplierDtlHideShow").show();
-                    $("#supplierAddOptionlHideShow").hide();
-                    infoNotify(data.msg);
-                    $("#modalAddNewSupplier").modal("hide");
-                    //$(".card-header > .card-options > .card-options-remove").shpw();
-                    $("#card-options-remove-supplier-dtl").show();
-                    finalItemDtlCalc("Others");
-                }
-                $("#btn-supplier-dtl-submit").LoadingOverlay("hide", true);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                $("#btn-supplier-dtl-submit").LoadingOverlay("hide", true);
-            }
-        });
-    }catch (err) {
-        alert(err.message);
-    }
 }
 $(document).ready(function () {
     jQuery.validator.addMethod("dateFormatYYYMMDD", function(value, element) {
@@ -1052,47 +1021,84 @@ $(document).ready(function () {
             submitForm(form);
         },
     });
-    function submitForm(formData) {
-        try {
-            var form = $('#form-invoice')[0]; // Use standard JavaScript object here
-            var formData = new FormData(form);
-            $.ajax({
-                type: "POST",
-                enctype: "multipart/form-data",
-                url: "{{ route('PostPurchasesInvoiceSubmit') }}",
-                dataType: "json",
-                data: formData,
-                processData: false,  // Don't process the data
-                contentType: false,  // Don't set content type
-                beforeSend: function() {
-                    // You can add loading overlay or any other pre-send logic here
-                    infoNotify("Please wait, invoice is generating !!!");
-                    $("#form-invoice").LoadingOverlay("show", {
-                        background  : "rgb(134, 168, 192, 0.5)"
-                    });
-                },
-                success: function(data) {
-                    if (data.status == 200) {
-                        infoNotify(data.msg);
-                        window.location.replace("/Purchases/Invoice/GetInvoiceDtlById/"+data.data.intPurchasesId);
-                    } else if (data.status == 400) {
-                        jQuery.each(data.data, function(index, itemData) {
-                            infoNotify(itemData);
-                            return false;
-                        });
-                    }
-                    $("#form-invoice").LoadingOverlay("hide", true);
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log("ERROR: ", errorThrown);
-                    $("#form-invoice").LoadingOverlay("hide", true);
-                }
-            });
-        } catch (err) {
-            console.log(err);
-        }
-    }
+    
 });
+function addFormSupplierDtl() {
+    var formValues= $("#form-supplier-dtl").serialize();
+    try{
+        $.ajax({
+            type:"POST",
+            url: '{{ route("Supplier.Supplier.PostAdd") }}',
+            dataType: "json",
+            data: formValues,
+            beforeSend: function() {
+                $("#btn-supplier-dtl-submit").LoadingOverlay("show", {
+                    background  : "rgb(134, 168, 192, 0.5)"
+                });
+            },
+            success:function(data){
+                if(data.status==200){
+                    $("#supplier_dtls_id").val(data.supplier_dtls_id);
+                    $("#supplier_intSupplyPlaceStateMstrsId").val(data.supplier_intSupplyPlaceStateMstrsId);
+                    $("#supplierDtlHideShow").html(data.html);
+                    $("#supplierDtlHideShow").show();
+                    $("#supplierAddOptionlHideShow").hide();
+                    infoNotify(data.msg);
+                    $("#modalAddNewSupplier").modal("hide");
+                    //$(".card-header > .card-options > .card-options-remove").shpw();
+                    $("#card-options-remove-supplier-dtl").show();
+                    finalItemDtlCalc("Others");
+                }
+                $("#btn-supplier-dtl-submit").LoadingOverlay("hide", true);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                $("#btn-supplier-dtl-submit").LoadingOverlay("hide", true);
+            }
+        });
+    }catch (err) {
+        alert(err.message);
+    }
+}
+function submitForm(formData) {
+    try {
+        var form = $('#form-invoice')[0]; // Use standard JavaScript object here
+        var formData = new FormData(form);
+        $.ajax({
+            type: "POST",
+            enctype: "multipart/form-data",
+            url: "{{ route('PostPurchasesInvoiceSubmit') }}",
+            dataType: "json",
+            data: formData,
+            processData: false,  // Don't process the data
+            contentType: false,  // Don't set content type
+            beforeSend: function() {
+                // You can add loading overlay or any other pre-send logic here
+                infoNotify("Please wait, invoice is generating !!!");
+                $("#form-invoice").LoadingOverlay("show", {
+                    background  : "rgb(134, 168, 192, 0.5)"
+                });
+            },
+            success: function(response) {
+                if (response.status == 200) {
+                    infoNotify(response.msg);
+                    window.location.replace("{{ route('PostPurchasesInvoiceGetInvoiceDtlById') }}"+"/"+response.data.intPurchasesId);
+                } else if (response.status == 400) {
+                    jQuery.each(response.data, function(index, itemData) {
+                        infoNotify(itemData);
+                        return false;
+                    });
+                }
+                $("#form-invoice").LoadingOverlay("hide", true);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log("ERROR: ", errorThrown);
+                $("#form-invoice").LoadingOverlay("hide", true);
+            }
+        });
+    } catch (err) {
+        console.log(err);
+    }
+}
 function otherValidation() {
     var proccess = true;
 

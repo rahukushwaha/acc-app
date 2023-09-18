@@ -9,7 +9,9 @@ use App\Http\Controllers\FilePermission\PermissionController;
 use App\Http\Controllers\Master\SubItemController;
 use App\Http\Controllers\Party\PartyController;
 use App\Http\Controllers\Purchases\PurchaseInvoiceController;
+use App\Http\Controllers\Purchases\PurchasesListController;
 use App\Http\Controllers\Sales\SalesInvoiceController;
+use App\Http\Controllers\Sales\SalesListController;
 use App\Http\Controllers\Supplier\SupplierController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,17 +50,27 @@ Route::middleware(['ensure.is.logged.in'])->group(function () {
         Route::get('/submeu/link/one', function () { return view('emptypage'); });
         Route::get('/submeu/link/two', function () { return view('emptypage'); });
 
+        //Dashborad
+        // Sub Dashboard
+        Route::get('/Dashboard/Sub/CalcProfitForCardView/', [DashboardController::class, 'CalcProfitForCardView'])->name('getDashboardSubCalcProfitForCardView');
+        Route::get('/Dashboard/Sub/WeekDayPurchaseSaleLineChart/', [DashboardController::class, 'WeekDayPurchaseSaleLineChart'])->name('getDashboardSubWeekDayPurchaseSaleLineChart');
         //Sales
         Route::get('/Sales/Invoice/', [SalesInvoiceController::class, 'Index'])->name('getSalesInvoiceIndex');
         Route::post('/Sales/Invoice/Submit', [SalesInvoiceController::class, 'PostSubmit'])->name('PostSalesInvoiceSubmit');
+        Route::get('/Sales/Invoice/GetInvoiceDtlById/{intSalesId?}', [SalesInvoiceController::class, 'GetInvoiceDtlById'])->name('PostSalesInvoiceGetInvoiceDtlById');
+        Route::get('/Sales/InvoiceList/', [SalesListController::class, 'Index'])->name('getInvoiceList');
+        Route::post('/Sales/InvoiceList/Datatable', [SalesListController::class, 'Datatable'])->name('PostSalesInvoiceListDatatable');
+
         //Party for Sales Invoice
         Route::post('/Party/Party/PostAdd', [PartyController::class, 'PostAdd'])->name("Party.Party.PostAdd");
-        Route::get('/Party/Party/GetPartDtlWithNameNo', [PartyController::class, 'GetPartDtlWithNameNo'])->name("Party.Party.GetPartDtlWithNameNo");
+        Route::get('/Party/Party/GetPartDtlWithNameNo', [PartyController::class, 'GetPartDtlWithNameNo'])->name("Party.Party.GetPartyDtlWithNameNo");
         Route::post('/Party/Party/getPartyDtlForInvoiceById', [PartyController::class, 'getPartyDtlForInvoiceById'])->name("Party.Party.getPartyDtlForInvoiceById");
         //Purchases
         Route::get('/Purchases/Invoice/', [PurchaseInvoiceController::class, 'Index'])->name('getPurchasesInvoiceIndex');
         Route::post('/Purchases/Invoice/Submit', [PurchaseInvoiceController::class, 'PostSubmit'])->name('PostPurchasesInvoiceSubmit');
-        Route::get('/Purchases/Invoice/GetInvoiceDtlById/{intPurchasesId}', [PurchaseInvoiceController::class, 'GetInvoiceDtlById'])->name('PostPurchasesInvoiceGetInvoiceDtlById');
+        Route::get('/Purchases/Invoice/GetInvoiceDtlById/{intPurchasesId?}', [PurchaseInvoiceController::class, 'GetInvoiceDtlById'])->name('PostPurchasesInvoiceGetInvoiceDtlById');
+        Route::get('/Purchases/InvoiceList/', [PurchasesListController::class, 'Index'])->name('getPurchasesInvoiceList');
+        Route::post('/Purchases/InvoiceList/Datatable', [PurchasesListController::class, 'Datatable'])->name('PostPurchasesInvoiceListDatatable');
         //Supplier for Purchase Invoice
         Route::post('/Supplier/Supplier/PostAdd', [SupplierController::class, 'PostAdd'])->name("Supplier.Supplier.PostAdd");
         Route::get('/Supplier/Supplier/GetSupplierDtlWithNameNo', [SupplierController::class, 'GetSupplierDtlWithNameNo'])->name("Supplier.Supplier.GetSupplierDtlWithNameNo");

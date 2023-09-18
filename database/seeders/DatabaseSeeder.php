@@ -30,7 +30,10 @@ class DatabaseSeeder extends Seeder
 
             //other
             tbl_party_dtls::class,
-            tbl_supplier_dtls::class
+            tbl_supplier_dtls::class,
+            tbl_purchases::class,
+            tbl_sales::class,
+
         ]);
     }
 }

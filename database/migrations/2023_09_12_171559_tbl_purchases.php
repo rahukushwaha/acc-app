@@ -53,12 +53,15 @@ return new class extends Migration
             $table->timestamps();
 
             // index
+            $table->index(['varSupplierName']);
+            $table->index(['varMobileNo']);
             $table->index(['varInvoiceNo']);
             $table->index(['dtInvoiceDate']);
             $table->index(['dtDueDate']);
             $table->index(['intSupplierDtlsId']);
             $table->index(['intSupplyPlaceStateMstrsId']);
             $table->index(['varBillReceiptNo']);
+            $table->index(['bitDeletedFlag']);
         });
     }
 

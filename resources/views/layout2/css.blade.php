@@ -26,6 +26,10 @@
          <!-- INTERNAL Notifications  Css -->
          <link href="{{ asset('assets/plugins/notify/css/jquery.growl.css') }}" rel="stylesheet" />
 		   <link href="{{ asset('assets/plugins/notify/css/notifIt.css') }}" rel="stylesheet" />
+         <!-- DATA TABLE CSS -->
+         <link href="{{ asset('assets/plugins/datatable/css/dataTables.bootstrap5.css') }}" rel="stylesheet" />
+         <link href="{{ asset('assets/plugins/datatable/css/buttons.bootstrap5.min.css') }}"  rel="stylesheet">
+         <link href="{{ asset('assets/plugins/datatable/responsive.bootstrap5.css') }}" rel="stylesheet" />
         <style>
            .error, .required {
                 color: red;

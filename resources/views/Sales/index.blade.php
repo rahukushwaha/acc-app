@@ -4,6 +4,11 @@
 .txt-left-side {
     text-align: right;
 }
+.error-jquery-validation {
+    display: block;
+    color: red;
+    margin-top: 5px;
+}
 </style>
 @endpush
 @section('content')
@@ -11,7 +16,7 @@
 <div class="app-content main-content mt-0">
     <div class="side-app">
         <!-- CONTAINER -->
-        <div class="main-container container-fluid">
+        <div class="main-container">
             <!-- PAGE-HEADER -->
             <div class="page-header"></div>
             <!-- PAGE-HEADER END -->
@@ -19,11 +24,11 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="card">
-                        <form id="form-invoice">
+                        <form id="form-invoice" enctype="multipart/form-data">
                             <div class="card-header border-bottom">
                                 <h4 class="mb-0">Invoice</h4>
                                 <div class="card-options">
-                                    <button class="btn btn-outline-info">
+                                    <button type="submit" class="btn btn-outline-info">
                                         <i class="fe fe-file-minus"></i>
                                         Save & Generate
                                     </button>
@@ -50,7 +55,7 @@
                                                                 <label class="fs-12" style="margin-bottom: 0rem">GSTIN:</label><br />
                                                                 <div class="row">
                                                                     <div class="col-md-12" style="text-align: right;">
-                                                                        <label class="fs-12" style="margin-bottom: 0rem">Place Of Supply: <b>Jharkhand</b></label><br />
+                                                                        <label class="fs-12" style="margin-bottom: 0rem">Place Of Party: <b>Jharkhand</b></label><br />
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -70,15 +75,11 @@
                                             <div class="col-xl-5 col-md-5 col-sm-12 border-y border-info">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="form-label" for="varInvoiceNo">Sales Invoice No. <span class="required">*</span> </label>
-                                                            <input type="text" class="form-control" id="varInvoiceNo" name="varInvoiceNo" placeholder="Sale Invoice No" required>
-                                                        </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label class="form-label" for="dtInvoiceDate">Sales Invoice Date <span class="required">*</span></label>
-                                                            <input type="date" class="form-control" id="dtInvoiceDate" name="dtInvoiceDate" placeholder="Sales Invoice Date" value="<?=Date("Y-m-d")?>" required>
+                                                            <label class="form-label" for="dtInvoiceDate">Sale Invoice Date <span class="required">*</span></label>
+                                                            <input type="date" class="form-control" id="dtInvoiceDate" name="dtInvoiceDate" placeholder="Sale Invoice Date"  value="<?=Date("Y-m-d")?>" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -86,7 +87,7 @@
                                                             <label class="form-label" for="intPaymentTerms">Payment Terms <span class="required">*</span></label>
                                                             <div class="input-group">
                                                                 <span class="input-group-text">Days</span>
-                                                                <input type="text" class="form-control" id="intPaymentTerms" name="intPaymentTerms" value="" />
+                                                                <input type="text" class="form-control" id="intPaymentTerms" name="intPaymentTerms" value="0" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -109,14 +110,14 @@
                                                     <table class="table text-nowrap text-md-nowrap table-bordered" id="myTable">
                                                         <thead>
                                                             <tr>
-                                                                <th>ITEM GROUP</th>
-                                                                <th>ITEM</th>
-                                                                <th>SAC</th>
-                                                                <th>QTY</th>
-                                                                <th>PRICE/ITEM</th>
-                                                                <th>DISCOUNT</th>
-                                                                <th>TAX</th>
-                                                                <th>AMOUNT</th>
+                                                                <th>ITEM GROUP&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                                                                <th>ITEM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                                                                <th>SAC&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                                                                <th>QTY&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                                                                <th>PRICE/ITEM&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                                                                <th>DISCOUNT&nbsp&nbsp&nbsp&nbsp</th>
+                                                                <th>TAX&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                                                                <th>AMOUNT&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
                                                                 <th>
                                                                     <a href="javascript:void(0)" role="button" class="text-primary text-center add-invoice-item-btn mt-2" onclick="itemAppendFun();">
                                                                         <i class="fa fa-cart-plus fs-20"></i>
@@ -126,31 +127,33 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody id="itemTBody">
-                                                            <tr id="myTable-row-1">
+                                                            <tr>
                                                                 <td>
-                                                                    <select class="form-select" id="intItemMstrsId1" name="intItemMstrsId[]" style="width:110%" onchange="ItemMstrChangeFun(this.id)">
-                                                                        <option>select</option>
-                                                                        {!! app('App\Http\Controllers\Common\CommonController')->showItemList() !!}
-                                                                    </select>
+                                                                    <div wid>
+                                                                        <select class="form-select" id="intItemMstrsId1" name="intItemMstrsId[]" onchange="ItemMstrChangeFun(this.id)">
+                                                                            <option value="">select</option>
+                                                                            {!! app('App\Http\Controllers\Common\CommonController')->showItemList() !!}
+                                                                        </select>
+                                                                    </div>
                                                                 </td>
-                                                                <td style="width: 200px;">
+                                                                <td>
                                                                     <select class="select2 form-select select2-dropdown" id="intSubItemMstrsId1" name="intSubItemMstrsId[]" data-placeholder="SELECT" style="width:100%">
-                                                                        <option>select item</option>
+                                                                        <option value="">select item</option>
                                                                     </select>
-                                                                    <textarea class="form-control" id="varDesc1" name="varDesc[]" placeholder="Small Desc"></textarea>
+                                                                    <textarea class="form-control border-top border-info varProductSerialNo" id="varProductSerialNo1" name="varProductSerialNo[]" placeholder="Product Serial No."></textarea>
                                                                 </td>
                                                                 <td style="width: 150px;">
                                                                     <input type="text" class="form-control varSAC" id="varSAC1" name="varSAC[]" placeholder="SAC" />
                                                                 </td>
-                                                                <td style="width: 120px;">
+                                                                <td>
                                                                     <input type="text" class="form-control intQty" id="intQty1" name="intQty[]" placeholder="QTR" onkeyup="itemDtlCalc(1, 'intQty')" onkeypress="return isNum(event);"  maxlength="2" />
                                                                 </td>
-                                                                <td style="width: 150px;">
+                                                                <td>
                                                                     <input type="text" class="form-control decSalesPrice" id="decSalesPrice1" name="decSalesPrice[]" placeholder="&#8377;" onkeyup="itemDtlCalc(1, 'decSalesPrice')" onkeypress="return isNumDot(event);"  maxlength="9"/>
                                                                 </td>
                                                                 <td style="width: 80px;">
                                                                     <input type="text" class="form-control decDiscountPer" id="decDiscountPer1" name="decDiscountPer[]" placeholder="%" onkeyup="itemDtlCalc(1, 'decDiscountPer')" onkeypress="return isNumDot(event);"  maxlength="5" />
-                                                                    <input type="text" class="form-control decDiscountAmt" id="decDiscountAmt1" name="decDiscountAmt[]" placeholder="&#8377;" onkeyup="itemDtlCalc(1, 'decDiscountAmt')" onkeypress="return isNumDot(event);"  maxlength="5" />
+                                                                    <input type="text" class="form-control decDiscountAmt" id="decDiscountAmt1" name="decDiscountAmt[]" placeholder="&#8377;" onkeyup="itemDtlCalc(1, 'decDiscountAmt')" onkeypress="return isNumDot(event);"  maxlength="7" />
                                                                 </td>
                                                                 <td style="width: 150px;">
                                                                     <input type="text" class="form-control decTaxAmt" id="decTaxAmt1" name="decTaxAmt[]" placeholder="&#8377;" readonly />
@@ -162,7 +165,7 @@
                                                                         <option value="28">28%</option>
                                                                     </select>
                                                                 </td>
-                                                                <td style="width: 150px;">
+                                                                <td>
                                                                     <input type="text" class="form-control decAmount" id="decAmount1" name="decAmount[]" placeholder="&#8377;" readonly />
                                                                 </td>
                                                                 <th>
@@ -440,7 +443,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label class="form-label">Mobile No <span class="required">*</span></label>
-                            <input type="text" class="form-control" id="varMobileNo" name="varMobileNo" placeholder="Mobile No">
+                            <input type="text" class="form-control" id="varMobileNo" name="varMobileNo" placeholder="Mobile No" maxlength="10">
                         </div>
                     </div>
                     <div class="row">
@@ -465,8 +468,8 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label class="form-label">Place of Supply (STATE) <span class="required">*</span></label>
-                            <select class="select2 form-select" id="intSupplyPlaceStateMstrsId" name="intSupplyPlaceStateMstrsId" data-placeholder="== SELECT ==" style="width:100%">
+                            <label class="form-label">Place of Party (STATE) <span class="required">*</span></label>
+                            <select class="select2 form-select" id="intPartyPlaceStateMstrsId" name="intPartyPlaceStateMstrsId" data-placeholder="== SELECT ==" style="width:100%">
                                 <option label="Choose one"></option>
                                 {!! app('App\Http\Controllers\Common\CommonController')->showStateList(10) !!}
                             </select>
@@ -478,7 +481,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-8">
-                            <button type="submit" class="btn btn-light" data-bs-dismiss="modal" >Close</button>
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal" >Close</button>
                         </div>
                         <div class="col-md-4">
                             <button type="submit" class="btn btn-primary" id="btn-party-dtl-submit">Save & Change</button>
@@ -531,7 +534,7 @@ function ItemMstrChangeFun(ID) {
 $(document).ready(function () {
     $('#vchSearchPartyDtl').select2({
         ajax: {
-            url: '{{ route("Party.Party.GetPartDtlWithNameNo") }}',
+            url: '{{ route("Party.Party.GetPartyDtlWithNameNo") }}',
             dataType: 'json',
             delay: 250,
             processResults: function (data) {
@@ -563,6 +566,7 @@ $(document).ready(function () {
                     });
                 },
                 success:function(data){
+                    console.log(data);
                     if(data.status==200){
                         $("#party_dtls_id").val(data.party_dtls_id);
                         $("#party_intSupplyPlaceStateMstrsId").val(data.party_intSupplyPlaceStateMstrsId);
@@ -583,49 +587,13 @@ $(document).ready(function () {
             alert(err.message);
         }
     });
-    $("#form-party-dtl").on("submit", function(event){
-        event.preventDefault();
-        var formValues= $(this).serialize();
-        try{
-            $.ajax({
-                type:"POST",
-                url: '{{ route("Party.Party.PostAdd") }}',
-                dataType: "json",
-                data: formValues,
-                beforeSend: function() {
-                    $("#btn-party-dtl-submit").LoadingOverlay("show", {
-                        background  : "rgb(134, 168, 192, 0.5)"
-                    });
-                },
-                success:function(data){
-                    if(data.status==200){
-                        $("#party_dtls_id").val(data.party_dtls_id);
-                        $("#party_intSupplyPlaceStateMstrsId").val(data.party_intSupplyPlaceStateMstrsId);
-                        $("#partyDtlHideShow").html(data.html);
-                        $("#partyDtlHideShow").show();
-                        $("#partyAddOptionlHideShow").hide();
-                        infoNotify(data.msg);
-                        $("#modalAddNewParty").modal("hide");
-                        //$(".card-header > .card-options > .card-options-remove").shpw();
-                        $("#card-options-remove-party-dtl").show();
-                        finalItemDtlCalc("Others");
-                    }
-                    $("#btn-party-dtl-submit").LoadingOverlay("hide", true);
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    $("#btn-party-dtl-submit").LoadingOverlay("hide", true);
-                }
-            });
-        }catch (err) {
-            alert(err.message);
-        }
-    });
     $("#card-options-remove-party-dtl").click(function(){
         $("#party_dtls_id").val("");
         $("#party_intSupplyPlaceStateMstrsId").val("");
         $("#partyAddOptionlHideShow").show();
         $("#partyDtlHideShow").hide();
         $("#card-options-remove-party-dtl").hide();
+        finalItemDtlCalc("others");
     });
     //$("#modalAddNewParty").modal("show");
     //$(".card-header > .card-options > .card-options-remove").hide();
@@ -643,7 +611,7 @@ function itemAppendFun() {
     var itemTBodyAppend = '<tr id="myTable-row-'+itemAppendCount+'">';
     itemTBodyAppend += '<td>';
     itemTBodyAppend += '<select class="form-select" id="intItemMstrsId'+itemAppendCount+'" name="intItemMstrsId[]" style="width:110%" onchange="ItemMstrChangeFun(this.id)">';
-    itemTBodyAppend += '<option>select</option>';
+    itemTBodyAppend += '<option value="">select</option>';
     itemTBodyAppend += "{!! app('App\Http\Controllers\Common\CommonController')->showItemList() !!}";
     itemTBodyAppend += '</select>';
     itemTBodyAppend += '</td>';
@@ -651,22 +619,22 @@ function itemAppendFun() {
     itemTBodyAppend += '<select class="select2 form-select select2-dropdown" id="intSubItemMstrsId'+itemAppendCount+'" name="intSubItemMstrsId[]" data-placeholder="SELECT" style="width:100%">';
     itemTBodyAppend += '<option>select item</option>';
     itemTBodyAppend += '</select>';
-    itemTBodyAppend += '<textarea class="form-control" id="varDesc'+itemAppendCount+'" name="varDesc[]" placeholder="Small Desc"></textarea>';
+    itemTBodyAppend += '<textarea class="form-control border-top border-info varProductSerialNo" id="varProductSerialNo'+itemAppendCount+'" name="varProductSerialNo[]" placeholder="Product Serial No."></textarea>';
     itemTBodyAppend += '</td>';
-    itemTBodyAppend += '<td style="width: 150px;">';
+    itemTBodyAppend += '<td>';
     itemTBodyAppend += '<input type="text" class="form-control varSAC" id="varSAC'+itemAppendCount+'" name="varSAC[]" placeholder="SAC" />';
     itemTBodyAppend += '</td>';
-    itemTBodyAppend += '<td style="width: 100px;">';
+    itemTBodyAppend += '<td>';
     itemTBodyAppend += '<input type="text" class="form-control intQty" id="intQty'+itemAppendCount+'" name="intQty[]" placeholder="QTR" onkeyup="itemDtlCalc('+itemAppendCount+', '+intQtySingleQuote+')" onkeypress="return isNum(event);"  maxlength="2" />';
     itemTBodyAppend += '</td>';
-    itemTBodyAppend += '<td style="width: 150px;">';
+    itemTBodyAppend += '<td>';
     itemTBodyAppend += '<input type="text" class="form-control decSalesPrice" id="decSalesPrice'+itemAppendCount+'" name="decSalesPrice[]" placeholder="&#8377;" onkeyup="itemDtlCalc('+itemAppendCount+', '+decSalesPriceSingleQuote+')" onkeypress="return isNumDot(event);"  maxlength="9" />';
     itemTBodyAppend += '</td>';
-    itemTBodyAppend += '<td style="width: 80px;">';
+    itemTBodyAppend += '<td>';
     itemTBodyAppend += '<input type="text" class="form-control decDiscountPer" id="decDiscountPer'+itemAppendCount+'" name="decDiscountPer[]" placeholder="%" onkeyup="itemDtlCalc('+itemAppendCount+', '+decDiscountPerSingleQuote+')" onkeypress="return isNumDot(event);"  maxlength="5" />';
-    itemTBodyAppend += '<input type="text" class="form-control decDiscountAmt" id="decDiscountAmt'+itemAppendCount+'" name="decDiscountAmt[]" placeholder="&#8377;" onkeyup="itemDtlCalc('+itemAppendCount+', '+decDiscountAmtSingleQuote+')" onkeypress="return isNumDot(event);"  maxlength="5" />';
+    itemTBodyAppend += '<input type="text" class="form-control decDiscountAmt" id="decDiscountAmt'+itemAppendCount+'" name="decDiscountAmt[]" placeholder="&#8377;" onkeyup="itemDtlCalc('+itemAppendCount+', '+decDiscountAmtSingleQuote+')" onkeypress="return isNumDot(event);"  maxlength="7" />';
     itemTBodyAppend += '</td>';
-    itemTBodyAppend += '<td style="width: 150px;">';
+    itemTBodyAppend += '<td>';
     itemTBodyAppend += '<input type="text" class="form-control decTaxAmt" id="decTaxAmt'+itemAppendCount+'" name="decTaxAmt[]" placeholder="&#8377;" readonly />';
     itemTBodyAppend += '<select class="form-select intGstPer" id="intGstPer'+itemAppendCount+'" name="intGstPer[]" onchange="itemDtlCalc('+itemAppendCount+', '+intGstPerSingleQuote+')">';
     itemTBodyAppend += '<option value="0">0%</option>';
@@ -676,7 +644,7 @@ function itemAppendFun() {
     itemTBodyAppend += '<option value="28">28%</option>';
     itemTBodyAppend += '</select>';
     itemTBodyAppend += '</td>';
-    itemTBodyAppend += '<td style="width: 150px;">';
+    itemTBodyAppend += '<td>';
     itemTBodyAppend += '<input type="text" class="form-control decAmount" id="decAmount'+itemAppendCount+'" name="decAmount[]" placeholder="&#8377;" readonly />';
     itemTBodyAppend += '</td>';
     itemTBodyAppend += '<th>';
@@ -690,6 +658,7 @@ function itemAppendFun() {
 }
 function removeSubItemDtlFun(rowRemoveId) {
     $('#myTable-row-'+rowRemoveId).remove();
+    finalItemDtlCalc("others");
 }
 
 function itemDtlCalc(id, keyName) {
@@ -748,11 +717,38 @@ function itemDtlCalc(id, keyName) {
     if (decDiscountPer == "" && keyName=="decDiscountPer") {
         $("#decDiscountAmt"+id).val("");
     }
+    if (!(keyName=="decDiscountPer" || keyName=="decDiscountAmt")) {
+        if (decDiscountPer > 0) {
+            decDiscountAmt = parseFloat(decAmountTemp * decDiscountPer / 100);
+            $("#decDiscountAmt"+id).val(decDiscountAmt.toFixed(2));
+        }
+    }
     /* end discount calc*/
     decAmountTemp = parseFloat(decAmountTemp + decTaxAmt);
     decAmount = parseFloat(decAmountTemp - decDiscountAmt);
     $("#decAmount"+id).val(decAmount.toFixed(2));
     
+    finalItemDtlCalc(keyName);
+}
+function finalItemDtlCalc(keyName) {
+    var decSubTotalAmt = parseFloat($("#decSubTotalAmt").val());
+    if ($("#decAdditionalChargesAmt").val()=="") {
+        $("#decAdditionalChargesAmt").val(0.00);
+    }
+    var decAdditionalChargesAmt = parseFloat($("#decAdditionalChargesAmt").val());
+    if (decAdditionalChargesAmt == "") {
+        decAdditionalChargesAmt = 0;
+    }
+    if ($("#decExtraDiscountAmt").val()=="") {
+        $("#decExtraDiscountAmt").val(0.00);
+    }
+    var decExtraDiscountAmt = parseFloat($("#decExtraDiscountAmt").val());
+    if (decExtraDiscountAmt == "") {
+        decExtraDiscountAmt = 0;
+    }
+    //var decTotalAmt = $("#decTotalAmt").val();
+    var decReceiveAmt = $("#decReceiveAmt").val();
+
     /* start sub total culculation */
     var decTotalSubDiscount = 0;
     var decTotalSubTax = 0;
@@ -782,27 +778,7 @@ function itemDtlCalc(id, keyName) {
     $("#decTotalSubTax").val(decTotalSubTax.toFixed(2));
     $("#decSubTotalAmt").val(decSubTotalAmt.toFixed(2));
     /* end sub total culculation */
-    finalItemDtlCalc(keyName);
-}
-function finalItemDtlCalc(keyName) {
-    var decSubTotalAmt = parseFloat($("#decSubTotalAmt").val());
-    if ($("#decAdditionalChargesAmt").val()=="") {
-        $("#decAdditionalChargesAmt").val(0.00);
-    }
-    var decAdditionalChargesAmt = parseFloat($("#decAdditionalChargesAmt").val());
-    if (decAdditionalChargesAmt == "") {
-        decAdditionalChargesAmt = 0;
-    }
-    if ($("#decExtraDiscountAmt").val()=="") {
-        $("#decExtraDiscountAmt").val(0.00);
-    }
-    var decExtraDiscountAmt = parseFloat($("#decExtraDiscountAmt").val());
-    if (decExtraDiscountAmt == "") {
-        decExtraDiscountAmt = 0;
-    }
-    //var decTotalAmt = $("#decTotalAmt").val();
-    var decReceiveAmt = $("#decReceiveAmt").val();
-
+    /* start taxable total amount culculation */
     var totalTaxableAmt = 0;
     var totalDecTaxAmt = 0;
     var totalIntGstPer = 0;
@@ -821,7 +797,8 @@ function finalItemDtlCalc(keyName) {
             totalIntGstPer = parseFloat(totalIntGstPer + intGstPer);
         }
     });
-    if (totalIntGstPer > 0) {     
+    /* end taxable total amount culculation */
+    if (totalIntGstPer > 0) {
         var party_intSupplyPlaceStateMstrsId = $("#party_intSupplyPlaceStateMstrsId").val();
         var owner_intSupplyPlaceStateMstrsId = $("#owner_intSupplyPlaceStateMstrsId").val();
         $(".decTaxableAmtHideShow").show();
@@ -868,7 +845,6 @@ function finalItemDtlCalc(keyName) {
     }
 
     var decTotalAmt = parseFloat(decSubTotalAmt+(decAdditionalChargesAmt-decExtraDiscountAmt));
-    
 
     var intIsRoundOffIsChecked = 0;
     if($("#intIsRoundOff").prop('checked') == true){
@@ -887,6 +863,233 @@ function finalItemDtlCalc(keyName) {
     if (decReceiveAmt == ""){ decReceiveAmt = 0; }
     var decBalanceAmt = parseFloat(decTotalAmt - decReceiveAmt);
     $("#decBalanceAmt").val(decBalanceAmt.toFixed(2));
+}
+$(document).ready(function () {
+    jQuery.validator.addMethod("dateFormatYYYMMDD", function(value, element) {
+        return this.optional(element) || /^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))+$/i.test(value);
+    }, "Invalid format (YYYY-MM-DD)"); 
+
+    jQuery.validator.addMethod("alphaSpace", function(value, element) {
+        return this.optional(element) || /^[a-zA-Z ]+$/i.test(value);
+    }, "Letters only please (a-z, A-Z )");
+
+    jQuery.validator.addMethod("alphaNumSlashHyphenCommaSpace", function(value, element) {
+        return this.optional(element) || /^[0-9a-zA-Z\/\-, ]+$/i.test(value);
+    }, "Letters only please (a-z, A-Z, 0-9, /)");
+
+    jQuery.validator.addMethod("alphaNumSlashHyphen", function(value, element) {
+        return this.optional(element) || /^[0-9a-zA-Z\/-]+$/i.test(value);
+    }, "Letters only please (a-z, A-Z, 0-9, -)"); 
+
+    jQuery.validator.addMethod("onlyNum", function(value, element) {
+        return this.optional(element) || /^[1-9]\d*$/i.test(value);
+    }, "Letters only please (0-9)"); 
+
+    jQuery.validator.addMethod("amountFormat", function(value, element) {
+        return this.optional(element) || /^\d+(\.\d{1,2})?$/i.test(value);
+    }, "Letters only please (0-9) or (0.00-9.99)"); 
+
+    jQuery.validator.addMethod('min_greater_zero', function (value, element) {
+        return value > 0;
+    }, "Please enter a value greater than 0");
+
+    $('.select2').on('change', function() {
+        $(this).valid();
+    });
+    $("#form-party-dtl").validate({
+        errorClass: "error-jquery-validation",
+        rules: {
+            "varPartyName": {
+                required: true,
+                alphaSpace: true,
+            },
+            "varMobileNo": {
+                required: true,
+                digits: true,
+            },
+            "intPartyPlaceStateMstrsId": {
+                required: true
+            },
+        },
+        errorPlacement: function(label, element) {
+            if (element.hasClass('select2')) {
+                label.insertAfter(element.next('.select2-container')).addClass('mt-2 text-danger');
+            } else {
+                label.addClass('mt-2 text-danger');
+                label.insertAfter(element);
+            }
+        },
+        submitHandler: function (form) {
+            addFormPartyDtl(form);
+        },
+    });
+    $("#form-invoice").validate({
+        errorClass: "error-jquery-validation",
+        rules: {
+            "dtInvoiceDate": {
+                required: true,
+                dateFormatYYYMMDD: true,
+            },
+            "intItemMstrsId[]": {
+                required: true
+            },
+            "intSubItemMstrsId[]": {
+                required: true
+            },
+            "varProductSerialNo[]": {
+                alphaNumSlashHyphen: true
+            },
+            "intQty[]": {
+                required: true,
+                onlyNum: true,
+                range: [1,50]
+            },
+            "decSalesPrice[]": {
+                required: true,
+                amountFormat: true,
+            },
+            "decDiscountPer[]": {
+                amountFormat: true,
+                min: 0,
+                max: 99
+            },
+            "decDiscountAmt[]": {
+                amountFormat: true
+            },
+            "varNotes": {
+                alphaNumSlashHyphenCommaSpace: true
+            },
+            "varTermsNCondition": {
+                alphaNumSlashHyphenCommaSpace: true
+            },
+            "decAdditionalChargesAmt": {
+                amountFormat: true,
+            },
+            "decExtraDiscountAmt": {
+                amountFormat: true,
+            },
+            "decReceiveAmt": {
+                amountFormat: true,
+            },
+        },
+        messages: {
+            /* varBillReceiptNo: {
+                required: "Please enter your email address",
+            }, */
+        },
+        errorPlacement: function(label, element) {
+            if (element.hasClass('select2')) {
+                label.insertAfter(element.next('.select2-container')).addClass('mt-2 text-danger');
+            } else {
+                label.addClass('mt-2 text-danger');
+                label.insertAfter(element);
+            }
+        },
+        submitHandler: function (form) {
+            if(otherValidation() == false) return false; 
+            submitForm(form);
+        },
+    });
+    
+});
+function addFormPartyDtl() {
+    var formValues= $("#form-party-dtl").serialize();
+    try{
+        $.ajax({
+            type:"POST",
+            url: '{{ route("Party.Party.PostAdd") }}',
+            dataType: "json",
+            data: formValues,
+            beforeSend: function() {
+                $("#btn-party-dtl-submit").LoadingOverlay("show", {
+                    background  : "rgb(134, 168, 192, 0.5)"
+                });
+            },
+            success:function(data){
+                if(data.status==200){
+                    $("#party_dtls_id").val(data.party_dtls_id);
+                    $("#party_intSupplyPlaceStateMstrsId").val(data.party_intSupplyPlaceStateMstrsId);
+                    $("#partyDtlHideShow").html(data.html);
+                    $("#partyDtlHideShow").show();
+                    $("#partyAddOptionlHideShow").hide();
+                    infoNotify(data.msg);
+                    $("#modalAddNewParty").modal("hide");
+                    //$(".card-header > .card-options > .card-options-remove").shpw();
+                    $("#card-options-remove-party-dtl").show();
+                    finalItemDtlCalc("Others");
+                }
+                $("#btn-party-dtl-submit").LoadingOverlay("hide", true);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                $("#btn-party-dtl-submit").LoadingOverlay("hide", true);
+            }
+        });
+    }catch (err) {
+        alert(err.message);
+    }
+}
+function submitForm(formData) {
+    try {
+        var form = $('#form-invoice')[0]; // Use standard JavaScript object here
+        var formData = new FormData(form);
+        $.ajax({
+            type: "POST",
+            enctype: "multipart/form-data",
+            url: "{{ route('PostSalesInvoiceSubmit') }}",
+            dataType: "json",
+            data: formData,
+            processData: false,  // Don't process the data
+            contentType: false,  // Don't set content type
+            beforeSend: function() {
+                // You can add loading overlay or any other pre-send logic here
+                infoNotify("Please wait, invoice is generating !!!");
+                $("#form-invoice").LoadingOverlay("show", {
+                    background  : "rgb(134, 168, 192, 0.5)"
+                });
+            },
+            success: function(response) {
+                if (response.status == 200) {
+                    infoNotify(response.msg);
+                    window.location.replace("{{ route('PostSalesInvoiceGetInvoiceDtlById') }}"+"/"+response.data.intSalesId);
+                } else if (response.status == 400) {
+                    jQuery.each(response.data, function(index, itemData) {
+                        infoNotify(itemData);
+                        return false;
+                    });
+                }
+                $("#form-invoice").LoadingOverlay("hide", true);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log("ERROR: ", errorThrown);
+                $("#form-invoice").LoadingOverlay("hide", true);
+            }
+        });
+    } catch (err) {
+        console.log(err);
+    }
+}
+function otherValidation() {
+    var proccess = true;
+
+    var party_dtls_id = $("#party_dtls_id").val();
+    var party_intSupplyPlaceStateMstrsId = $("#party_intSupplyPlaceStateMstrsId").val();
+    if (party_dtls_id == "" && party_intSupplyPlaceStateMstrsId == "") {
+        infoNotify("You are not select the party detail. !!!"); proccess = false;
+    }
+    var decBalanceAmt = $("#decBalanceAmt").val();
+    if (decBalanceAmt !="" && decBalanceAmt < 0) {
+        $("#decBalanceAmt").focus();
+        infoNotify("You don't pay advance amount. !!!"); proccess = false;
+    }
+    if (proccess) {
+        if (decBalanceAmt !="" && decBalanceAmt > 0) {
+            var confirmMsg = "You want to submit this invoice with balance amount. !!!";
+            if (!confirm(confirmMsg) == true) {
+                proccess = false;
+            }
+        }
+    }
+    return proccess;
 }
 </script>
 @endpush

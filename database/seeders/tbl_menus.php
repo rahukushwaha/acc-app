@@ -119,6 +119,26 @@ class tbl_menus extends Seeder
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
             [
+                'menu_type' => '2',
+                'menu_name' => 'Invoice List',
+                'menu_url' => 'Sales/InvoiceList',
+                'menu_icon' => null,
+                'parent_menu_id' => '9',
+                'status' => '1',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'menu_type' => '2',
+                'menu_name' => 'Invoice Return',
+                'menu_url' => 'Sales/InvoiceReturn',
+                'menu_icon' => null,
+                'parent_menu_id' => '9',
+                'status' => '1',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
                 'menu_type' => '1',
                 'menu_name' => 'Purchases',
                 'menu_url' => '#',
@@ -133,7 +153,27 @@ class tbl_menus extends Seeder
                 'menu_name' => 'Invoice',
                 'menu_url' => 'Purchases/Invoice',
                 'menu_icon' => null,
-                'parent_menu_id' => '11',
+                'parent_menu_id' => '13',
+                'status' => '1',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'menu_type' => '2',
+                'menu_name' => 'Invoice List',
+                'menu_url' => 'Purchases/InvoiceList',
+                'menu_icon' => null,
+                'parent_menu_id' => '13',
+                'status' => '1',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'menu_type' => '2',
+                'menu_name' => 'Invoice Return',
+                'menu_url' => 'Purchases/InvoiceReturn',
+                'menu_icon' => null,
+                'parent_menu_id' => '13',
                 'status' => '1',
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('intSalesId')->nullable();
             $table->integer('intItemMstrsId')->default(0);
             $table->integer('intSubItemMstrsId')->default(0);
-            $table->string('varProductSerialNo')->nullable();
+            $table->text('varProductSerialNo')->nullable();
             $table->string('varSAC')->nullable();
             $table->tinyInteger('intQty')->default(0);
             $table->decimal('decSalesPrice', 10, 2)->default(0);
@@ -33,10 +33,12 @@ return new class extends Migration
             $table->timestamps();
 
             // index
+            $table->index(['varBarcode']);
             $table->index(['intSalesId']);
             $table->index(['intItemMstrsId']);
             $table->index(['intSubItemMstrsId']);
             $table->index(['varProductSerialNo']);
+            $table->index(['bitDeletedFlag']);
         });
     }
 
