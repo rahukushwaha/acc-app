@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('layout.layout');
 })->name("Home");
 
 Route::get('/File/Read/{filePath}', [FileController::class, 'readFile']);
